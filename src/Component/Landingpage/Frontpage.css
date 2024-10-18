@@ -1,0 +1,365 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .booking-container {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../../images/s2.jpg'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: transparent;
+  }
+  
+  .logo img {
+    width: 150px;
+  }
+  
+  .menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .hero {
+    /* background-image: url('../../images/s2.jpg'); Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 120px;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+  }
+  
+  .hero-content h1  {
+    font-size: 57px;
+    margin-bottom: 20px;
+    top: 20px;
+    font-family: "Afacad Flux", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+
+    
+    
+   
+  }
+  .hero-content h3{
+    font-size: 30px;
+    font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+
+  }
+  
+  .booking-form {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    color: black;
+  }
+  
+  .form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
+  .quantity-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantity-buttons button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .quantity-buttons span {
+    width: 30px;
+    text-align: center;
+  }
+  
+  .check-availability-button {
+    background-color: #ffba00;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .check-availability-button:hover {
+    background-color: #e6a800;
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* For smaller devices (tablets, small screens) */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 36px;
+    }
+  
+    .booking-form {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .form-group {
+      width: 100%;
+    }
+  
+    .quantity-buttons {
+      justify-content: center;
+    }
+  }
+  
+  /* For mobile devices */
+  @media (max-width: 480px) {
+    .hero {
+      height: auto;
+      padding: 30px 10px;
+    }
+  
+    .hero-content h1 {
+      font-size: 28px;
+    }
+  
+    .booking-form {
+      padding: 15px;
+      width: 100%;
+    }
+  
+    .form-group input {
+      width: 100%;
+    }
+  
+    .quantity-buttons button, .quantity-buttons span {
+      font-size: 18px;
+    }
+  
+    .check-availability-button {
+      padding: 10px;
+      font-size: 16px;
+    }
+  
+    .menu-icon {
+      font-size: 20px;
+    }
+  
+    .logo img {
+      width: 120px;
+    }
+  }
+  
+  .logo img{
+    width: 300px;
+    height: 60px;
+  }
+  .top-nav {
+    display: flex;
+    justify-content: space-between; /* Space between the logo and icon */
+    align-items: center; /* Aligns items vertically */
+    padding: 10px 20px; /* Adjust as needed */
+    background-color: transparent; /* Optional: set background if needed */
+    position: relative; /* Optional: helps in positioning */
+  }
+  
+  .menu-icon {
+    font-size: 30px; /* Font size for the icon */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: white; /* Change to your preferred color */
+  }
+  /* Frontpage.css */
+
+/* Modal Overlay (darkens the background) */
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 850px;
+  max-width: 90%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+
+/* Container for image and form */
+.login-container {
+  display: flex;
+  width: 100%;
+}
+
+/* Left image container */
+.login-image {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 10px 0 0 10px;
+  overflow: hidden;
+  height: 100%; /* Ensure the container spans the full modal height */
+}
+
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Form Content */
+.login-form {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 0 10px 10px 0;
+}
+
+/* Header */
+.header h2 {
+  color: #000;
+  font-size: 36px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.underline {
+  height: 4px;
+  width: 60px;
+  background: #f7b000;
+  margin: 10px auto;
+}
+
+/* Input fields */
+.inputs {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 0 20px;
+}
+
+.input img {
+  margin-right: 15px;
+}
+
+.input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Forgot password section */
+.forget {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #797979;
+}
+
+.forget span {
+  color: #f7b000;
+  cursor: pointer;
+}
+
+/* Submit buttons */
+.submit-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 45px;
+  background-color: #f7b000;
+  border-radius: 50px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: #e0a200;
+}
+
+.active {
+  background-color: #f7b000;
+  color: #fff;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
