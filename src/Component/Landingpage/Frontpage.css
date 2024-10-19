@@ -363,3 +363,7 @@
   font-size: 24px;
   cursor: pointer;
 }
+.right-side{
+  display: flex;
+  gap: 20%;
+}

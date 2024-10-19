@@ -3,7 +3,7 @@ import './Frontpage.css';
 import logoimage from '../../images/logo withoutBG.png'; // Correct relative path
 import { useNavigate } from 'react-router-dom';
 import Login from "../Loginsignup/Loginsignup";
-
+import Sideslidebar from './sideslidebar';
 const Frontpage = () => {
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(1);
@@ -25,13 +25,22 @@ const Frontpage = () => {
 
     return (
         <div className="booking-container">
+              
             <div className='top-nav'>
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
+                <div className='right-side'> 
                 <div className="menu-icon" onClick={toggleLoginModal}>
-                    <i className="bi bi-list"></i>
+                <i class="bi bi-person-circle"></i>
+                
                 </div>
+                <div>
+                  <Sideslidebar/>  
+                </div>
+                </div>
+                
+              
             </div>
             <div className="hero">
                 <div className="hero-content">
