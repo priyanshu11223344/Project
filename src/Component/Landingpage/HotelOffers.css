@@ -23,4 +23,21 @@
   li {
     margin-bottom: 5px;
   }
+  .hotelmap {
+    display: grid; /* Use CSS Grid for layout */
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px; /* Space between grid items */
+    margin: 20px; /* Optional: adds margin around the grid */
+}
+
+.hotelmap .cardcomponent {
+    border: 1px solid #ccc; /* Optional: styling for the card */
+    padding: 20px; /* Optional: adds padding inside the card */
+    border-radius: 8px; /* Optional: rounded corners */
+    justify-content: space-between;
+}
+
+  .hotelmain{
+    width: 100%;
+  }
   

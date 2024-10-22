@@ -1,6 +1,7 @@
 import React from 'react'
 import Cardcomponent from './Cardcomponent'
 import "../Landingpage/Availability.css"
+import HotelOffers from './HotelOffers'
 
 const Availability = () => {
     return (
@@ -9,22 +10,7 @@ const Availability = () => {
                 <div className='welcome-text'> {/* Changed the class name */}
                     WELCOME TO OUR SERVICES
                 </div>
-                <div className='card-main-below-text'>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                    <Cardcomponent className="card"></Cardcomponent>
-                </div>
+               <div className='card'> <HotelOffers/></div>
             </div>
         </div>
     )

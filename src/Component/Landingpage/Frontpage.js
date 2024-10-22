@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import './Frontpage.css';
 import logoimage from '../../images/logo withoutBG.png'; // Correct relative path
 import { useNavigate } from 'react-router-dom';
 import Login from "../Loginsignup/Loginsignup";
 import HotelOffers from './HotelOffers';
 import Sideslidebar from './sideslidebar';
+import { useContext } from 'react'; // For Hotel context
+import Hotelcontext from '../../context/Hotelcontext'; // Assuming this is the correct path
+
 const Frontpage = () => {
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(1);
+    const [checkin, setCheckin] = useState('');  // Added state for checkin
+    // const [checkout, setCheckout] = useState('');  // Added state for checkout
     const [showLogin, setShowLogin] = useState(false);
-    const history = useNavigate(); // Initialize useNavigate
-
+    const history = useNavigate(); 
+    const { fetchData } = useContext(Hotelcontext); // Use fetchData from context
+    // useEffect(() => {
+    //     fetchData()
+    //   }, []);
     const incrementAdults = () => setAdults(adults + 1);
     const decrementAdults = () => adults > 1 && setAdults(adults - 1);
 
@@ -19,29 +27,45 @@ const Frontpage = () => {
 
     const toggleLoginModal = () => setShowLogin(!showLogin);
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        if (!isNaN(date)) {
+            return date.toISOString().split('T')[0];  // Return yyyy-mm-dd format
+        }
+        return '';  // Return empty string if invalid date
+    };
+   
     const handleCheckAvailability = (e) => {
         e.preventDefault();
-        history("/Availibility") // Navigate to availability page
-    };
 
+        // Validate and format checkin and checkout dates
+        console.log(checkin);
+        const formattedCheckin = formatDate(checkin);
+        console.log(formattedCheckin)
+        // const formattedCheckout = formatDate(checkout);
+
+        if (formattedCheckin) {
+            fetchData(formattedCheckin);  // Pass formatted dates
+            history("/Availibility");
+        } else {
+            alert('Please enter valid check-in and check-out dates');
+        }
+    };
+    
     return (
         <div className="booking-container">
-              
             <div className='top-nav'>
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
                 <div className='right-side'> 
-                <div className="menu-icon" onClick={toggleLoginModal}>
-                <i className="bi bi-person-circle"></i>
-                
+                    <div className="menu-icon" onClick={toggleLoginModal}>
+                        <i className="bi bi-person-circle"></i>
+                    </div>
+                    <div>
+                        <Sideslidebar/>  
+                    </div>
                 </div>
-                <div>
-                  <Sideslidebar/>  
-                </div>
-                </div>
-                
-              
             </div>
             <div className="hero">
                 <div className="hero-content">
@@ -54,11 +78,26 @@ const Frontpage = () => {
                         </div>
                         <div className="form-group">
                             <div>Check-in</div>
-                            <input type="date" placeholder="Check In" />
+                            <input 
+                                type="date" 
+                                value={checkin} 
+                                onChange={(e) => {
+                                    console.log("Input value: ", e.target.value);  // Check what is coming from the input
+                                    setCheckin(e.target.value);  // Update state correctly
+                                }} 
+                                required 
+                                pattern="\d{4}-\d{2}-\d{2}"
+                            />
                         </div>
                         <div className="form-group">
                             <div>Check-out</div>
-                            <input type="date" placeholder="Check Out" />
+                            <input 
+                                type="date" 
+                                // value={checkout} 
+                                // onChange={(e) => setCheckout(e.target.value)} 
+                                required 
+                                pattern="\d{4}-\d{2}-\d{2}"
+                            />
                         </div>
                         <div className="form-group">
                             <label>Adults</label>
@@ -83,7 +122,6 @@ const Frontpage = () => {
                 </div>
             </div>
             {showLogin && <Login closeModal={toggleLoginModal} />}
-            <HotelOffers/>
         </div>
     );
 };
