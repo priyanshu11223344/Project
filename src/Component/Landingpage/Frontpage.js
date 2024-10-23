@@ -46,11 +46,16 @@ const Frontpage = () => {
 
         if (formattedCheckin) {
             fetchData(formattedCheckin);  // Pass formatted dates
-            history("/Availibility");
+            history("/Availability");
         } else {
             alert('Please enter valid check-in and check-out dates');
         }
+        
+        
+        // fetchData();
+        // history("/Availibility");
     };
+
     
     return (
         <div className="booking-container">

@@ -12,8 +12,8 @@ const HotelOffers = () => {
     fetchData()
   }, []);
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Available Hotels</h1>
+    <div >
+     
       {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       {data.length > 0 ? (
         <div  className='hotelmap'>
@@ -21,7 +21,8 @@ const HotelOffers = () => {
             <Cardcomponent
               key={index}
               title={hotel.HotelName}
-              description={`Location: ${hotel.Location}, Price: ${hotel.Offers[0]?.TotalPrice || 'N/A'} ${hotel.Offers[0]?.Currency || 'N/A'}`}
+              description={`Location: ${hotel.Location}`}
+              price={`Price: ${hotel.Offers[0]?.TotalPrice || 'N/A'} ${hotel.Offers[0]?.Currency || 'N/A'}`}
               additionalData={`Category: ${hotel.Offers[0]?.Category}, Rooms: ${hotel.Offers[0]?.Rooms.join(', ')}`}
             />
           ))}

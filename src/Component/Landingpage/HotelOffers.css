@@ -24,6 +24,7 @@
     margin-bottom: 5px;
   }
   .hotelmap {
+    position: relative;
     display: grid; /* Use CSS Grid for layout */
     grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
     gap: 20px; /* Space between grid items */

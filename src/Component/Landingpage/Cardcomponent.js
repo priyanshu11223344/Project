@@ -7,10 +7,11 @@ const Cardcomponent = (props) => {
 
   <img src={hotelimg} className="card-img-top" alt="..."/>
   <div className="card-body">
-    <h5 className="card-title">{props.title}</h5>
-    <h5 className="card-title">{props.desciption}</h5>
-    <h5 className="card-title">{props.additionalData}</h5>
-    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <h4 className="card-title">{props.title}</h4>
+    <h5 className="card-title">{props.description}</h5>
+    {/* <h5 className="card-title">{props.additionalData}</h5> */}
+    <h5 className='"card-title'>{props.price}</h5>
+    <p className="card-text">{props.additionalData}</p>
   </div>
   <ul className="list-group list-group-flush">
     <li className="list-group-item">An item</li>
