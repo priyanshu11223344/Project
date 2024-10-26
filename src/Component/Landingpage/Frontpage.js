@@ -3,7 +3,6 @@ import './Frontpage.css';
 import logoimage from '../../images/logo withoutBG.png'; // Correct relative path
 import { useNavigate } from 'react-router-dom';
 import Login from "../Loginsignup/Loginsignup";
-import HotelOffers from './HotelOffers';
 import Sideslidebar from './sideslidebar';
 import { useContext } from 'react'; // For Hotel context
 import Hotelcontext from '../../context/Hotelcontext'; // Assuming this is the correct path
@@ -16,9 +15,10 @@ const Frontpage = () => {
     const [showLogin, setShowLogin] = useState(false);
     const history = useNavigate(); 
     const { fetchData } = useContext(Hotelcontext); // Use fetchData from context
-    // useEffect(() => {
-    //     fetchData()
-    //   }, []);
+    useEffect(() => {
+        fetchData(checkin)
+      }, []);
+      console.log("frontpage rendered first");
     const incrementAdults = () => setAdults(adults + 1);
     const decrementAdults = () => adults > 1 && setAdults(adults - 1);
 
@@ -37,24 +37,20 @@ const Frontpage = () => {
    
     const handleCheckAvailability = (e) => {
         e.preventDefault();
-
-        // Validate and format checkin and checkout dates
-        console.log(checkin);
+    
         const formattedCheckin = formatDate(checkin);
-        console.log(formattedCheckin)
-        // const formattedCheckout = formatDate(checkout);
-
+    
         if (formattedCheckin) {
-            fetchData(formattedCheckin);  // Pass formatted dates
+            // Save check-in date to localStorage
+            localStorage.setItem('checkin', formattedCheckin);
+    
             history("/Availability");
         } else {
             alert('Please enter valid check-in and check-out dates');
         }
-        
-        
-        // fetchData();
-        // history("/Availibility");
     };
+    
+    
 
     
     return (

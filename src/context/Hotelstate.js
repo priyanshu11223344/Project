@@ -5,46 +5,58 @@ import { parseString } from "xml2js";  // Import the xml2js parser
 
 const HotelProvider = (props) => {
   const [data, setData] = useState([]);
+  const [data1,setdata1]=useState([]);
   const [error, setError] = useState('');
-  const fetchData = async (checkin) => {  // Accept checkin (and checkout if needed) as parameters
-    console.log(checkin);
+  const [check,setcheck]=useState('');
+  const fetchData = async (check) => {  // Accept checkin (and checkout if needed) as parameters
+ 
+    console.log(check);
     const soapXML = `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      <soap12:Body>
-        <MakeRequest xmlns="http://www.goglobal.travel/">
-          <requestType>11</requestType>
-          <xmlRequest><![CDATA[
-            <Root>
-              <Header>
-                <Agency>148535</Agency>
-                <User>REISENBOOKINGXMLTEST</User>
-                <Password>JHJDO58X0EV</Password>
-                <Operation>HOTEL_SEARCH_REQUEST</Operation>
-                <OperationType>Request</OperationType>
-              </Header>
-              <Main Version="2.0" ResponseFormat="JSON" IncludeGeo="false" Currency="USD">
-                <SortOrder>1</SortOrder>
-                <FilterPriceMin>0</FilterPriceMin>
-                <FilterPriceMax>10000</FilterPriceMax>
-                <MaximumWaitTime>20</MaximumWaitTime>
-                <MaxResponses>500</MaxResponses>
-                <Nationality>GB</Nationality>
-                <CityCode>77</CityCode>
-                <ArrivalDate>2024-11-26</ArrivalDate>
-                <Nights>3</Nights>
-                <Stars>5</Stars>
-                <Rooms>
-                  <Room Adults="2" RoomCount="1" />
-                  <Room Adults="1" RoomCount="1">
-                    <ChildAge>9</ChildAge>
-                    <ChildAge>5</ChildAge>
-                  </Room>
-                </Rooms>
-              </Main>
-            </Root>
-          ]]></xmlRequest>
-        </MakeRequest>
-      </soap12:Body>
+    <soap12:Body>
+    <MakeRequest xmlns="http://www.goglobal.travel/">
+    <requestType>11</requestType>
+    <xmlRequest><![CDATA[
+    <Root>
+    <Header>
+    <Agency>148535</Agency>
+    <User>REISENBOOKINGXMLTEST</User>
+    <Password>JHJDO58X0EV</Password>
+    <Operation>HOTEL_SEARCH_REQUEST</Operation>
+    <OperationType>Request</OperationType>
+    </Header>
+    <Main Version="2.3" ResponseFormat="JSON" IncludeGeo="false" Currency="USD">
+    <SortOrder>1</SortOrder>
+    <FilterPriceMin>0</FilterPriceMin>
+    <FilterPriceMax>10000</FilterPriceMax>
+    <MaximumWaitTime>15</MaximumWaitTime>
+    <MaxResponses>500</MaxResponses>
+    <FilterRoomBasises>
+    <FilterRoomBasis>HB</FilterRoomBasis>
+    <FilterRoomBasis>BB</FilterRoomBasis>
+    </FilterRoomBasises>
+    <Nationality>GB</Nationality>
+    <CityCode>75</CityCode>
+    <Hotels>
+    <!-- <HotelId>226</HotelId> -->
+    </Hotels>
+    <ArrivalDate>${check}</ArrivalDate>
+    <Nights>3</Nights>
+    <Stars>5</Stars>
+    <Rooms>
+    <Room Adults="2" RoomCount="1" ChildCount="1">
+        <ChildAge>5</ChildAge>
+        </Room>
+    <Room Adults="1" RoomCount="1" ChildCount="1">
+    <ChildAge>9</ChildAge>
+    
+    </Room>
+    </Rooms>
+    </Main>
+    </Root>
+    ]]></xmlRequest>
+    </MakeRequest>
+    </soap12:Body>
     </soap12:Envelope>`;
     try {
        
@@ -84,9 +96,9 @@ const HotelProvider = (props) => {
       console.error(err);
     }
   };
-
+  
   return (
-    <Hotelcontext.Provider value={{ fetchData, data, error }}>
+    <Hotelcontext.Provider value={{ fetchData, data, error,setcheck,check ,data1,setdata1}}>
       {props.children}
     </Hotelcontext.Provider>
   );

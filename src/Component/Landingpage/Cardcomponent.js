@@ -5,7 +5,7 @@ const Cardcomponent = (props) => {
     <div>
       <div className="card" style={{ width: '18rem' }}>
 
-  <img src={hotelimg} className="card-img-top" alt="..."/>
+  <img src={props.image} className="card-img-top" height="250px" width="100px"/>
   <div className="card-body">
     <h4 className="card-title">{props.title}</h4>
     <h5 className="card-title">{props.description}</h5>
@@ -14,8 +14,8 @@ const Cardcomponent = (props) => {
     <p className="card-text">{props.additionalData}</p>
   </div>
   <ul className="list-group list-group-flush">
-    <li className="list-group-item">An item</li>
-    <li className="list-group-item">A second item</li>
+    <li className="list-group-item">{props.Special}</li>
+    <li className="list-group-item">{props.remark}</li>
     <li className="list-group-item">A third item</li>
   </ul>
   <div className="card-body">
