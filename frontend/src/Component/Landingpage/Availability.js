@@ -11,13 +11,15 @@ const Availability = () => {
     const [error, setError] = useState('');
 
     // Function to fetch data with a 10-second delay
-    const handleCheckAvailability =async () => {
-        const storedCheckin = localStorage.getItem('checkin');
+    // const handleCheckAvailability =async () => {
+        
+    // };
+    const storedCheckin = localStorage.getItem('checkin');
         if (storedCheckin) {
             setLoading(true); // Start loading
             setShowOffers(false); // Hide previous offers
             setError(''); // Clear any previous errors
-             await fetchData(storedCheckin)
+              fetchData(storedCheckin)
             .then(() => {
                 setLoading(false); // Stop loading
                 setShowOffers(true); // Show offers after fetching
@@ -28,11 +30,10 @@ const Availability = () => {
             });
             
         }
-    };
 
-    useEffect(() => {
-        handleCheckAvailability(); // Fetch data on component mount if needed
-    }, []); // Empty dependency array to run on mount
+    // useEffect(() => {
+    //     handleCheckAvailability(); // Fetch data on component mount if needed
+    // }, []); // Empty dependency array to run on mount
 
     return (
         <div>
