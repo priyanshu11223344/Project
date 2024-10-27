@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: ['https://project-1-frontend-indol.vercel.app '],
+  origin: ['https://project-1-frontend-indol.vercel.app'],
   methods:["POST","GET"] // Allow requests from this origin
 }));
 app.use(express.text({ type: 'application/xml' }));
