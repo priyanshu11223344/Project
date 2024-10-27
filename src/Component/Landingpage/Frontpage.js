@@ -15,10 +15,10 @@ const Frontpage = () => {
     const [showLogin, setShowLogin] = useState(false);
     const history = useNavigate(); 
     const { fetchData } = useContext(Hotelcontext); // Use fetchData from context
-    useEffect(() => {
-        fetchData(checkin)
-      }, []);
-      console.log("frontpage rendered first");
+    // useEffect(() => {
+    //     fetchData(checkin)
+    //   }, []);
+    //   console.log("frontpage rendered first");
     const incrementAdults = () => setAdults(adults + 1);
     const decrementAdults = () => adults > 1 && setAdults(adults - 1);
 
@@ -43,7 +43,7 @@ const Frontpage = () => {
         if (formattedCheckin) {
             // Save check-in date to localStorage
             localStorage.setItem('checkin', formattedCheckin);
-    
+              fetchData(formattedCheckin)
             history("/Availability");
         } else {
             alert('Please enter valid check-in and check-out dates');
@@ -83,7 +83,7 @@ const Frontpage = () => {
                                 type="date" 
                                 value={checkin} 
                                 onChange={(e) => {
-                                    console.log("Input value: ", e.target.value);  // Check what is coming from the input
+                                    // console.log("Input value: ", e.target.value);  // Check what is coming from the input
                                     setCheckin(e.target.value);  // Update state correctly
                                 }} 
                                 required 
