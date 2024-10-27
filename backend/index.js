@@ -4,12 +4,12 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: ['https://project-1-frontend-indol.vercel.app'],
+  origin: ['project-1-frontend-indol.vercel.app'],
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
 app.options('/send-soap-request', cors({
-  origin: ['https://project-1-frontend-indol.vercel.app'],
+  origin: ['project-1-frontend-indol.vercel.app'],
   methods: ["POST", "OPTIONS"]
 }));
 
