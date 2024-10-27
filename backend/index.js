@@ -29,9 +29,8 @@ app.get('/', (req, res) => {
 // POST route
 app.post('/send-soap-request', async (req, res) => {
   const soapXML = req.body; // This will be the raw XML data sent in the request
-  // console.log(soapXML);
+
   try {
-    // Send the SOAP request using Axios
     const response = await axios({
       method: 'POST',
       url: 'https://reisenbooking.xml.goglobal.travel/xmlwebservice.asmx',
@@ -39,20 +38,17 @@ app.post('/send-soap-request', async (req, res) => {
         'Content-Type': 'application/soap+xml; charset=utf-8',
       },
       data: soapXML,
-    // Set a 15-second timeout (adjust as needed)
+      timeout: 15000, // Set a 15-second timeout
     });
-    
 
-    // Log the response from the external SOAP API
     console.log('SOAP Response:', response.data);
-
-    // Send the response back to the client
     res.send(response.data);
   } catch (error) {
-    console.error('Error sending SOAP request:', error.message);
+    console.error('Error sending SOAP request:', error);
     res.status(500).send('Error sending SOAP request');
   }
 });
+
 
 
 

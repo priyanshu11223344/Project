@@ -62,6 +62,7 @@ const HotelProvider = (props) => {
         headers: {
           'Content-Type': 'application/xml',
         },
+        timeout:15000,
       });
 
       // Log the response after it's received
