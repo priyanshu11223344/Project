@@ -54,8 +54,7 @@ const Availability = () => {
                                 <p>Loading offers...</p>
                             </div>
                         )}
-                        {error && <div>{error}</div>} {/* Show error message if there's an error */}
-                        {showOffers && !loading && !error && <HotelOffers />} {/* Show offers only if not loading and no error */}
+                        <HotelOffers/>
                     </div>
                 </div>
             </div>
