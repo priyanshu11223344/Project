@@ -4,9 +4,15 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: ['https://project-1-frontend-indol.vercel.app', 'http://localhost:3000'],
-  methods: ["POST", "GET"]
+  origin: ['https://project-1-frontend-indol.vercel.app'],
+  methods: ["POST", "GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
 }));
+app.options('/send-soap-request', cors({
+  origin: ['https://project-1-frontend-indol.vercel.app'],
+  methods: ["POST", "OPTIONS"]
+}));
+
 
 app.use(express.text({ type: 'application/xml' }));
 
@@ -25,12 +31,14 @@ app.post('/send-soap-request', async (req, res) => {
     // Send the SOAP request using Axios
     const response = await axios({
       method: 'POST',
-      url: 'https://reisenbooking.xml.goglobal.travel/xmlwebservice.asmx', // SOAP endpoint
+      url: 'https://reisenbooking.xml.goglobal.travel/xmlwebservice.asmx',
       headers: {
         'Content-Type': 'application/soap+xml; charset=utf-8',
       },
-      data: soapXML // Send the XML body received from the client
+      data: soapXML,
+      timeout: 15000 // Set a 15-second timeout (adjust as needed)
     });
+    
 
     // Log the response from the external SOAP API
     console.log('SOAP Response:', response.data);
