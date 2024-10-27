@@ -11,24 +11,22 @@ const Availability = () => {
     const [error, setError] = useState('');
 
     // Function to fetch data with a 10-second delay
-    const handleCheckAvailability = () => {
+    const handleCheckAvailability =async () => {
         const storedCheckin = localStorage.getItem('checkin');
         if (storedCheckin) {
             setLoading(true); // Start loading
             setShowOffers(false); // Hide previous offers
             setError(''); // Clear any previous errors
-
-            setTimeout(() => {
-                fetchData(storedCheckin)
-                    .then(() => {
-                        setLoading(false); // Stop loading
-                        setShowOffers(true); // Show offers after fetching
-                    })
-                    .catch(err => {
-                        setLoading(false); // Stop loading on error
-                        setError(err.message || 'An error occurred'); // Set error message
-                    });
-            }, 10000); // 10-second delay
+             await fetchData(storedCheckin)
+            .then(() => {
+                setLoading(false); // Stop loading
+                setShowOffers(true); // Show offers after fetching
+            })
+            .catch(err => {
+                setLoading(false); // Stop loading on error
+                setError(err.message || 'An error occurred'); // Set error message
+            });
+            
         }
     };
 
