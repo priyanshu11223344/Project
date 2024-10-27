@@ -6,7 +6,7 @@ const app = express();
 
 // Allow requests from your frontend's origin
 app.use(cors({
-  origin: 'http://localhost:3000', // Make sure this matches your frontend
+  origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true // Add this if using cookies or sessions
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.options('/send-soap-request', cors({
-  origin: 'http://localhost:3000', // Make sure this matches your frontend
+  origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
 }));
 
 app.use(express.text({ type: 'application/xml' }));

@@ -13,7 +13,7 @@
         {
           "source": "/send-soap-request",
           "headers": [
-            { "key": "Access-Control-Allow-Origin", "value": "https://project-1-frontend-indol.vercel.app" },
+            { "key": "Access-Control-Allow-Origin", "value": "https://project-1-front.vercel.app" },
             { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
             { "key": "Access-Control-Allow-Headers", "value": "Content-Type" },
             { "key": "Access-Control-Allow-Credentials", "value": "true" }

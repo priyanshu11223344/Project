@@ -59,7 +59,7 @@ const HotelProvider = (props) => {
     </soap12:Envelope>`;
 
     try {
-      const response = await axios.post('http://localhost:8000/send-soap-request', soapXML, {
+      const response = await axios.post('https://project-1-back.vercel.app/send-soap-request', soapXML, {
         headers: {
           'Content-Type': 'application/xml',
         },
