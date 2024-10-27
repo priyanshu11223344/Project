@@ -4,14 +4,9 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: ['project-1-frontend-indol.vercel.app'],
-  methods: ["POST", "GET", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
+  origin: ['https://project-1-frontend-indol.vercel.app']
 }));
-app.options('/send-soap-request', cors({
-  origin: ['project-1-frontend-indol.vercel.app'],
-  methods: ["POST", "OPTIONS"]
-}));
+
 
 
 app.use(express.text({ type: 'application/xml' }));
@@ -36,7 +31,7 @@ app.post('/send-soap-request', async (req, res) => {
         'Content-Type': 'application/soap+xml; charset=utf-8',
       },
       data: soapXML,
-      timeout: 15000 // Set a 15-second timeout (adjust as needed)
+    // Set a 15-second timeout (adjust as needed)
     });
     
 
