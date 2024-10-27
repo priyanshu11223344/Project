@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Cardcomponent from './Cardcomponent';
 import Hotelcontext from '../../context/Hotelcontext';
 import './HotelOffers.css';
@@ -7,8 +7,15 @@ import { Audio } from 'react-loader-spinner';
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
-
-    console.log(data);
+    // useEffect(() => {
+    //     const storedCheckin = localStorage.getItem('checkin');
+    //      // Fetch data on component mount if needed
+    //      if(storedCheckin){
+    //         fetchData(storedCheckin)
+    //      }
+    // }, []);
+    console.log("data is", data);
+    console.log(data.length)
 
     const stripHtml = (html) => {
         const div = document.createElement('div');
@@ -27,18 +34,18 @@ const HotelOffers = () => {
 
     return (
         <div>
-            {data.length > 0 ? (
-                <div className='hotelmap'>
-                    {data.map((hotel, index) => (
+            {data?.Hotels?.length > 0 ? ( // Check if Hotels array exists and has items
+                <div className="hotelmap">
+                    {data.Hotels.map((hotel, index) => (
                         <Cardcomponent
                             key={index}
                             image={hotel.HotelImage}
                             title={hotel.HotelName}
-                            description={`Location: ${hotel.Location}`}
-                            price={`Price: ${hotel.Offers[0]?.TotalPrice || 'N/A'} ${hotel.Offers[0]?.Currency || 'N/A'}`}
-                            additionalData={`Category: ${hotel.Offers[0]?.Category}, Rooms: ${hotel.Offers[0]?.Rooms.join(', ')}`}
-                            Special={`Special: ${stripHtml(hotel.Offers[0]?.Special)}`}
-                            remark={`Remark: ${truncateRemark(stripHtml(hotel.Offers[0]?.Remark))}`} // Use the truncate function here
+                            description={`Location: ${hotel.Location || 'N/A'}`}
+                            price={`Price: ${hotel.Offers?.[0]?.TotalPrice || 'N/A'} ${hotel.Offers?.[0]?.Currency || 'N/A'}`}
+                            additionalData={`Category: ${hotel.Offers?.[0]?.Category || 'N/A'}, Rooms: ${hotel.Offers?.[0]?.Rooms?.join(', ') || 'N/A'}`}
+                            Special={`Special: ${stripHtml(hotel.Offers?.[0]?.Special || "NONE")}`}
+                            remark={`Remark: ${truncateRemark(stripHtml(hotel.Offers?.[0]?.Remark || ''))}`}
                         />
                     ))}
                 </div>
@@ -51,10 +58,12 @@ const HotelOffers = () => {
                         ariaLabel="audio-loading"
                         visible={true}
                     />
-                    <p>Loading offers...</p> {/* Optional loading text */}
+                    <p>Loading offers...</p>
                 </div>
             )}
         </div>
+
+
     );
 };
 

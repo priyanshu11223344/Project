@@ -5,6 +5,7 @@ import { parseString } from "xml2js";  // Import the xml2js parser
 
 const HotelProvider = (props) => {
   const [data, setData] = useState([]);
+  const [data1,setData1]=useState([]);
   const [error, setError] = useState('');
   const [check, setCheck] = useState('');
 
@@ -62,33 +63,14 @@ const HotelProvider = (props) => {
         headers: {
           'Content-Type': 'application/xml',
         },
-        timeout:15000,
+        
       });
 
       // Log the response after it's received
       console.log("data fetched");
       console.log(response.data);
-
+       setData(response.data)
       // Use xml2js to parse the XML response
-      parseString(response.data, (err, result) => {
-        if (err) {
-          setError('Error parsing XML');
-          console.error(err);
-        } else {
-          // Navigate through the XML structure to extract relevant data
-          const makeRequestResult = result['soap:Envelope']['soap:Body'][0]['MakeRequestResponse'][0]['MakeRequestResult'][0];
-
-          // If makeRequestResult is in JSON string format within XML, parse it
-          try {
-            const parsedData = JSON.parse(makeRequestResult);  // Ensure makeRequestResult is a JSON string
-            console.log(parsedData);
-            setData(parsedData.Hotels);  // Assuming parsedData contains a 'Hotels' key
-          } catch (jsonParseError) {
-            setError('Error parsing MakeRequestResult JSON');
-            console.error(jsonParseError);
-          }
-        }
-      });
 
     } catch (err) {
       // Handle specific error messages based on the response
@@ -101,9 +83,12 @@ const HotelProvider = (props) => {
       }
     }
   };
+  //get route
+  
+  
   
   return (
-    <Hotelcontext.Provider value={{ fetchData, data, error, setCheck, check }}>
+    <Hotelcontext.Provider value={{ fetchData, data, error, setCheck, check, }}>
       {props.children}
     </Hotelcontext.Provider>
   );

@@ -43,12 +43,13 @@ const Frontpage = () => {
         if (formattedCheckin) {
             // Save check-in date to localStorage
             localStorage.setItem('checkin', formattedCheckin);
-              fetchData(formattedCheckin)
+               fetchData(formattedCheckin)
             history("/Availability");
         } else {
             alert('Please enter valid check-in and check-out dates');
         }
     };
+
     
     
 

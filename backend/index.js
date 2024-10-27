@@ -1,30 +1,35 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
-
+import { parseString } from 'xml2js';
 const app = express();
+
+// Allow requests from your frontend's origin
 app.use(cors({
-  origin: 'https://localhost:3000',
+  origin: 'http://localhost:3000', // Make sure this matches your frontend
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true // Add this if using cookies or sessions
 }));
 
+app.use((req, res, next) => {
+  console.log("Origin:", req.headers.origin); // Log the incoming origin
+  next();
+});
+
 app.options('/send-soap-request', cors({
-  origin: 'https://localhost:3000',
+  origin: 'http://localhost:3000', // Make sure this matches your frontend
 }));
-
-
-
 
 app.use(express.text({ type: 'application/xml' }));
 
+// Variable to store the last SOAP response
+let lastSoapResponse = null;
 
 // GET route
 app.get('/', (req, res) => {
   res.send("hello bhai");
 });
-
 
 // POST route
 app.post('/send-soap-request', async (req, res) => {
@@ -37,19 +42,34 @@ app.post('/send-soap-request', async (req, res) => {
       headers: {
         'Content-Type': 'application/soap+xml; charset=utf-8',
       },
-      data: soapXML,
-      timeout: 15000, // Set a 15-second timeout
+      data: soapXML
     });
+    parseString(response.data, (err, result) => {
+      if (err) {
+        // setError('Error parsing XML');
+        console.error(err);
+      } else {
+        // Navigate through the XML structure to extract relevant data
+        const makeRequestResult = result['soap:Envelope']['soap:Body'][0]['MakeRequestResponse'][0]['MakeRequestResult'][0];
 
-    console.log('SOAP Response:', response.data);
-    res.send(response.data);
+        // If makeRequestResult is in JSON string format within XML, parse it
+        try {
+          const parsedData = JSON.parse(makeRequestResult);  // Ensure makeRequestResult is a JSON string
+          console.log( "parseddata is:", parsedData);
+          res.send(parsedData)
+          // setData(parsedData.Hotels);  // Assuming parsedData contains a 'Hotels' key
+        } catch (jsonParseError) {
+          // setError('Error parsing MakeRequestResult JSON');
+          console.error(jsonParseError);
+        }
+      }
+    });
+   
   } catch (error) {
     console.error('Error sending SOAP request:', error);
     res.status(500).send('Error sending SOAP request');
   }
 });
-
-
 
 
 const port = process.env.PORT || 8000;
