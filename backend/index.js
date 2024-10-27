@@ -11,7 +11,7 @@ app.use(express.text({ type: 'application/xml' }));
 
 // GET route
 app.get('/', (req, res) => {
-  res.send("hello");
+  res.send("hello bhai");
 });
 
 // POST route
