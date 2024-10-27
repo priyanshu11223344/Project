@@ -15,7 +15,6 @@ const HotelOffers = () => {
     //      }
     // }, []);
     console.log("data is", data);
-    console.log(data.length)
 
     const stripHtml = (html) => {
         const div = document.createElement('div');
