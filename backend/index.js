@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: 'project-1-frontend-indol.vercel.app ' // Allow requests from this origin
+  origin: 'https://project-1-frontend-indol.vercel.app/ ' // Allow requests from this origin
 }));
 app.use(express.text({ type: 'application/xml' }));
 
@@ -13,6 +13,7 @@ app.use(express.text({ type: 'application/xml' }));
 app.get('/', (req, res) => {
   res.send("hello bhai");
 });
+
 
 // POST route
 app.post('/send-soap-request', async (req, res) => {
