@@ -10,7 +10,7 @@ const Availability = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Function to fetch data based on selected date
+    // Function to fetch data with a 10-second delay
     const handleCheckAvailability = () => {
         const storedCheckin = localStorage.getItem('checkin');
         if (storedCheckin) {
@@ -18,15 +18,17 @@ const Availability = () => {
             setShowOffers(false); // Hide previous offers
             setError(''); // Clear any previous errors
 
-            fetchData(storedCheckin) // Fetch data
-                .then(() => {
-                    setLoading(false); // Stop loading
-                    setShowOffers(true); // Show offers after fetching
-                })
-                .catch(err => {
-                    setLoading(false); // Stop loading on error
-                    setError(err); // Set error message
-                });
+            setTimeout(() => {
+                fetchData(storedCheckin)
+                    .then(() => {
+                        setLoading(false); // Stop loading
+                        setShowOffers(true); // Show offers after fetching
+                    })
+                    .catch(err => {
+                        setLoading(false); // Stop loading on error
+                        setError(err.message || 'An error occurred'); // Set error message
+                    });
+            }, 10000); // 10-second delay
         }
     };
 
