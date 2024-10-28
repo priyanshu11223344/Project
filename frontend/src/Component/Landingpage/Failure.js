@@ -3,7 +3,7 @@ import './Failure.css'
 const Failure = () => {
     const handleRetry = () => {
         // Logic to retry the payment or redirect to the appropriate page
-        window.location.href = '/'; // Redirecting to the home page as an example
+        window.location.href = '/Availability'; // Redirecting to the home page as an example
     };
 
     return (
