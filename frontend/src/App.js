@@ -5,6 +5,7 @@ import Hotelstate from "./context/Hotelstate"
 import Availability from './Component/Landingpage/Availability';
 // import { Hotel } from '@mui/icons-material';
 // import HotelOffers from './Component/Landingpage/HotelOffers';
+import Failure from './Component/Landingpage/Failure';
 import Success from './Component/Landingpage/Success';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path='/' element={<Frontpage />}/> 
             <Route path='/Availability' element={<Availability/>}/> 
             <Route path='/success' element={<Success/>}/>
+            <Route path='/cancel' element={<Failure/>}/>
             </Routes>
         </Router>
         </Hotelstate>
