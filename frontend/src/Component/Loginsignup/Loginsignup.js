@@ -41,12 +41,12 @@ function Login({ closeModal }) {
 
         if (user) {
             setSuccess("Login successful!");
-            alert("successsfull.........")
+            alert("successful.........");
             setError("");
             // Here you can redirect to another page or perform other actions after successful login
         } else {
             setError("Invalid email or password!");
-            alert("failure..............")
+            alert("failure..............");
             setSuccess("");
         }
     };
@@ -103,25 +103,31 @@ function Login({ closeModal }) {
                         <div className="submit-container">
                             {action === "signup" ? (
                                 <div className="submit" onClick={handleSignup}>
-                                    submit
+                                    Sign Up
                                 </div>
                             ) : (
                                 <div className="submit" onClick={handleLogin}>
-                                    submit
+                                    Login
                                 </div>
                             )}
-                            <div
-                                className={action === "signup" ? "submit active" : "submit"}
-                                onClick={() => setAction("signup")}
-                            >
-                                submit
-                            </div>
-                            <div
-                                className={action === "Login" ? "submit active" : "submit"}
-                                onClick={() => setAction("Login")}
-                            >
-                                submit
-                            </div>
+                        </div>
+
+                        <div className="toggle-action">
+                            {action === "signup" ? (
+                                <div
+                                    className="submit active"
+                                    onClick={() => setAction("Login")}
+                                >
+                                    Already have an account? Login
+                                </div>
+                            ) : (
+                                <div
+                                    className="submit active"
+                                    onClick={() => setAction("signup")}
+                                >
+                                    Don't have an account? Sign Up
+                                </div>
+                            )}
                         </div>
 
                         {/* Close Button */}
