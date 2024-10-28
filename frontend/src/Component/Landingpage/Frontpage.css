@@ -365,5 +365,6 @@
 }
 .right-side{
   display: flex;
-  gap: 20%;
+  justify-content: space-between;
+  position: relative;
 }

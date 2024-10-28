@@ -55,12 +55,12 @@ function Login({ closeModal }) {
 
         if (user) {
             setSuccess("Login successful!");
-            alert("successful.........");
+            alert("Successful Login");
             setError("");
             // Here you can redirect to another page or perform other actions after successful login
         } else {
             setError("Invalid email or password!");
-            alert("failure..............");
+            alert("Invalid Credentials");
             setSuccess("");
         }
     };
