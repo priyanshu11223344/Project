@@ -27,29 +27,32 @@ const HotelOffers = () => {
 
     const handleBookClick = async (hotelDetails) => {
         console.log("Hotel details:", hotelDetails);
-    
-        // const stripe = await stripePromise;
-    
+        
         try {
-            // Send the request to create a payment intent
-            const response = await axios.post('https://project-1-back.vercel.app/create-payment-intent', {
+            // Call backend to create checkout session
+            const response = await axios.post('https://project-1-back.vercel.app/create-checkout-session', {
                 amount: hotelDetails.Offers[0].TotalPrice * 100, // Amount in cents
                 currency: hotelDetails.Offers[0].Currency || 'usd',
-                name:hotelDetails.HotelName
             });
-    
-            const sessionId=response.data.id;
-    
-            // Use a Stripe test card token for testing purposes
-            const stripe=window.Stripe('pk_test_51QErKCCKkgmSQ5qkmnBDZTbCaWm5YpMH3Jm53JxIcYg39EqXWDpOy6sAPIJlToG3yTzN53xlWrou2OpSEtiD9sgN00i1v6Ge2o')
-            const {error}=await stripe.redirectToCheckout({sessionId});
-            if(error){
-                console.log('Error redirecting to Stripe Checkout:',error);
-            }       
+            
+            const sessionId = response.data.id; // Ensure `sessionId` is correctly extracted
+            
+            if (!sessionId) {
+                throw new Error("No session ID returned from backend.");
+            }
+            
+            const stripe = await loadStripe('pk_test_51QErKCCKkgmSQ5qkmnBDZTbCaWm5YpMH3Jm53JxIcYg39EqXWDpOy6sAPIJlToG3yTzN53xlWrou2OpSEtiD9sgN00i1v6Ge2o');
+            
+            const { error } = await stripe.redirectToCheckout({ sessionId });
+            
+            if (error) {
+                console.error("Error redirecting to Stripe Checkout:", error);
+            }
         } catch (error) {
-            console.error('Error processing payment:', error);
+            console.error("Error processing payment:", error);
         }
     };
+    
     
 
     // Log temp state whenever it updates
