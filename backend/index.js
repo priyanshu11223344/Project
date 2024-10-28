@@ -20,6 +20,7 @@ app.use((req, res, next) => {
   console.log("Origin:", req.headers.origin); // Log the incoming origin
   next();
 });
+app.use(express.json()); 
 
 app.options('/send-soap-request', cors({
    origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
@@ -82,7 +83,7 @@ app.post('/create-payment-intent', async (req, res) => {
     console.log('Received currency:', currency);
 
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await stripe.paymentIntents.create({ 
       amount: amount, // Amount in cents
       currency: currency || 'usd',
     });
