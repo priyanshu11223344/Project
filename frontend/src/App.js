@@ -14,7 +14,7 @@ function App() {
             <Routes>
             <Route path='/' element={<Frontpage />}/> 
             <Route path='/Availability' element={<Availability/>}/> 
-            <Route path='/Success' element={<Success/>}></Route>
+            <Route path='/success' element={<Success/>}/>
             </Routes>
         </Router>
         </Hotelstate>

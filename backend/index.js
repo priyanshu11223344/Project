@@ -117,7 +117,7 @@ app.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: 'https://project-1-front.vercel.app/Success', // Redirect after successful payment
+      success_url: 'https://project-1-front.vercel.app/success', // Redirect after successful payment
       cancel_url: 'https://project-1-front.vercel.app/cancel', // Redirect if payment is cancelled
     });
 
