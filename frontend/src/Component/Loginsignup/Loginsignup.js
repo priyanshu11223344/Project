@@ -14,6 +14,13 @@ function Login({ closeModal }) {
     const [success, setSuccess] = useState(""); // For success messages
 
     const handleSignup = () => {
+        // Validate fields
+        if (!name || !email || !password) {
+            setError("All fields are required!");
+            setSuccess("");
+            return;
+        }
+
         // Save user data to localStorage
         const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
         const userExists = existingUsers.find(user => user.email === email);
@@ -36,6 +43,13 @@ function Login({ closeModal }) {
     };
 
     const handleLogin = () => {
+        // Validate fields
+        if (!email || !password) {
+            setError("Email and password are required!");
+            setSuccess("");
+            return;
+        }
+
         const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
         const user = existingUsers.find(user => user.email === email && user.password === password);
 
@@ -103,11 +117,11 @@ function Login({ closeModal }) {
                         <div className="submit-container">
                             {action === "signup" ? (
                                 <div className="submit" onClick={handleSignup}>
-                                    Sign Up
+                                    SUBMIT
                                 </div>
                             ) : (
                                 <div className="submit" onClick={handleLogin}>
-                                    Login
+                                    SUBMIT
                                 </div>
                             )}
                         </div>
@@ -118,14 +132,14 @@ function Login({ closeModal }) {
                                     className="submit active"
                                     onClick={() => setAction("Login")}
                                 >
-                                    Already have an account? Login
+                                     Login
                                 </div>
                             ) : (
                                 <div
                                     className="submit active"
                                     onClick={() => setAction("signup")}
                                 >
-                                    Don't have an account? Sign Up
+                                    Sign Up
                                 </div>
                             )}
                         </div>
