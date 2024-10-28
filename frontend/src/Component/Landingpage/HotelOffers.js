@@ -28,7 +28,7 @@ const HotelOffers = () => {
     const handleBookClick = async (hotelDetails) => {
         console.log("Hotel details:", hotelDetails);
     
-        const stripe = await stripePromise;
+        // const stripe = await stripePromise;
     
         try {
             // Send the request to create a payment intent
