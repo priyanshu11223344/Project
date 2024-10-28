@@ -33,7 +33,7 @@ const HotelOffers = () => {
         try {
             // Send the request to create a payment intent
             const response = await axios.post('https://project-1-back.vercel.app/create-payment-intent', {
-                amount: Math.round(hotelDetails.Offers[0].TotalPrice * 100), // Amount in cents
+                amount: hotelDetails.Offers[0].TotalPrice * 100, // Amount in cents
                 currency: hotelDetails.Offers[0].Currency || 'usd'
             });
     
