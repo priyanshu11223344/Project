@@ -98,7 +98,7 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 app.post('/create-checkout-session', async (req, res) => {
-  const { amount, currency,name } = req.body;
+  const { amount, currency,name ,image} = req.body;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -109,6 +109,7 @@ app.post('/create-checkout-session', async (req, res) => {
             currency: currency,
             product_data: {
               name: name,
+              images:image
             },
             unit_amount: amount, // amount in cents
           },

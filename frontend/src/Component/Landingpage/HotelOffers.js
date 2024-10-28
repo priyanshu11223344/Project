@@ -33,7 +33,8 @@ const HotelOffers = () => {
             const response = await axios.post('https://project-1-back.vercel.app/create-checkout-session', {
                 amount: hotelDetails.Offers[0].TotalPrice * 100, // Amount in cents
                 currency: hotelDetails.Offers[0].Currency || 'usd',
-                name:hotelDetails.HotelName
+                name:hotelDetails.HotelName,
+                image:hotelDetails.HotelImage
             });
             
             const sessionId = response.data.id; // Ensure `sessionId` is correctly extracted
