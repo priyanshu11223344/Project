@@ -6,7 +6,6 @@ const Success = () => {
     <div>
        <div className="success-container">
             <div className="success-content">
-                
                 <h1 className="success-title">Payment Successful!</h1>
                 <p className="success-message">
                     Thank you for your booking! We’re excited to have you with us.
