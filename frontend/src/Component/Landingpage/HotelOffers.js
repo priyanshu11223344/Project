@@ -7,7 +7,7 @@ import { Audio } from 'react-loader-spinner';
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
-    const [temp,setTemp]=useState();
+    const [temp,setTemp]=useState([]);
     // Helper functions
     const stripHtml = (html) => {
         const div = document.createElement('div');
