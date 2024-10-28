@@ -2,6 +2,7 @@ import React from 'react'
 import './Success.css';
 import { FaCheckCircle } from 'react-icons/fa';
 const Success = () => {
+    console.log("Success component rendered"); 
   return (
     <div>
        <div className="success-container">
