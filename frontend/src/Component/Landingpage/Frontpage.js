@@ -50,10 +50,14 @@ const Frontpage = () => {
             alert('Please enter valid check-in and check-out dates');
         }
     };
+    const remove=()=>{
+        localStorage.removeItem("users");
+    }
 
     return (
         <div className="booking-container">
             <div className='top-nav'>
+                <button className='btn btn-primary' onClick={remove}>LOGOUT</button>
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
