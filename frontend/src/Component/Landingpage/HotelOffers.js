@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Cardcomponent from './Cardcomponent';
 import Hotelcontext from '../../context/Hotelcontext';
 import './HotelOffers.css';
@@ -8,7 +8,7 @@ import axios from 'axios';
 // const stripePromise = loadStripe('');
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
-    const { fetchData, data } = context;
+    const {  data } = context;
     // const [temp, setTemp] = useState([]);
 
     const stripHtml = (html) => {
