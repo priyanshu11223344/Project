@@ -83,30 +83,30 @@ function Login({ closeModal }) {
                             {action === "signup" && (
                                 <div className="input">
                                     <img src={user_icon} alt="User Icon" />
-                                    <input 
-                                        type="text" 
-                                        placeholder="Name" 
+                                    <input
+                                        type="text"
+                                        placeholder="Name"
                                         value={name}
-                                        onChange={(e) => setName(e.target.value)} 
+                                        onChange={(e) => setName(e.target.value)}
                                     />
                                 </div>
                             )}
                             <div className="input">
                                 <img src={user_email} alt="Email Icon" />
-                                <input 
-                                    type="email" 
-                                    placeholder="Email" 
+                                <input
+                                    type="email"
+                                    placeholder="Email"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)} 
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="input">
                                 <img src={user_pass} alt="Password Icon" />
-                                <input 
-                                    type="password" 
-                                    placeholder="Password" 
+                                <input
+                                    type="password"
+                                    placeholder="Password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)} 
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -115,6 +115,7 @@ function Login({ closeModal }) {
                         {success && <div className="success-message">{success}</div>}
 
                         <div className="submit-container">
+                        <div className="toggle-action">
                             {action === "signup" ? (
                                 <div className="submit" onClick={handleSignup}>
                                     SUBMIT
@@ -132,7 +133,7 @@ function Login({ closeModal }) {
                                     className="submit active"
                                     onClick={() => setAction("Login")}
                                 >
-                                     Login
+                                    Login
                                 </div>
                             ) : (
                                 <div
@@ -142,6 +143,7 @@ function Login({ closeModal }) {
                                     Sign Up
                                 </div>
                             )}
+                        </div>
                         </div>
 
                         {/* Close Button */}
