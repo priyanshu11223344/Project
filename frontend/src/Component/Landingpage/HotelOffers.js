@@ -5,7 +5,7 @@ import './HotelOffers.css';
 import { Audio } from 'react-loader-spinner';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-const stripePromise = loadStripe('');
+// const stripePromise = loadStripe('');
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
