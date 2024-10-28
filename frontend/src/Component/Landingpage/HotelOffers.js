@@ -7,8 +7,8 @@ import { Audio } from 'react-loader-spinner';
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
-    const [temp,setTemp]=useState([]);
-    // Helper functions
+    const [temp, setTemp] = useState([]);
+
     const stripHtml = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;
@@ -26,8 +26,12 @@ const HotelOffers = () => {
     const handleBookClick = (hotelDetails) => {
         console.log("Hotel details:", hotelDetails);
         setTemp(hotelDetails);
-        console.log("temp is",temp); // Logs the details of the clicked hotel
     };
+
+    // Log temp state whenever it updates
+    useEffect(() => {
+        console.log("Updated temp:", temp);
+    }, [temp]);
 
     return (
         <div>
@@ -43,8 +47,7 @@ const HotelOffers = () => {
                             additionalData={`Category: ${hotel.Offers?.[0]?.Category || 'N/A'}, Rooms: ${hotel.Offers?.[0]?.Rooms?.join(', ') || 'N/A'}`}
                             Special={`Special: ${stripHtml(hotel.Offers?.[0]?.Special || "NONE")}`}
                             remark={`Remark: ${truncateRemark(stripHtml(hotel.Offers?.[0]?.Remark || ''))}`}
-                            handleBookClick={handleBookClick} // Pass handleBookClick function
-                            hotelDetails={hotel} // Pass entire hotel object for detailed logging
+                            handleBookClick={() => handleBookClick(hotel)} // Pass hotel details to handleBookClick
                         />
                     ))}
                 </div>
