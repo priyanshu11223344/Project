@@ -29,8 +29,8 @@ const HotelProvider = (props) => {
                 <SortOrder>1</SortOrder>
                 <FilterPriceMin>0</FilterPriceMin>
                 <FilterPriceMax>10000</FilterPriceMax>
-                <MaximumWaitTime>15</MaximumWaitTime>
-                <MaxResponses>500</MaxResponses>
+                <MaximumWaitTime>5</MaximumWaitTime>
+                <MaxResponses>100</MaxResponses>
                 <FilterRoomBasises>
                   <FilterRoomBasis>HB</FilterRoomBasis>
                   <FilterRoomBasis>BB</FilterRoomBasis>
@@ -58,30 +58,24 @@ const HotelProvider = (props) => {
       </soap12:Body>
     </soap12:Envelope>`;
 
+    let retries = 2;
+  let success = false;
+
+  while (retries > 0 && !success) {
     try {
-      const response = await axios.post('http://project-1-back.vercel.app/send-soap-request', soapXML, {
-        headers: {
-          'Content-Type': 'application/xml',
-        },
-        
+      const response = await axios.post('https://project-1-back.vercel.app/send-soap-request', soapXML, {
+        headers: { 'Content-Type': 'application/xml' },
+        timeout: 10000,  // Set a timeout of 10 seconds
       });
-
-      // Log the response after it's received
-      console.log("data fetched");
-      console.log(response.data);
-       setData(response.data)
-      // Use xml2js to parse the XML response
-
+      console.log("data fetched", response.data);
+      setData(response.data);
+      success = true;  // Set success flag if request completes
     } catch (err) {
-      // Handle specific error messages based on the response
-      if (err.response && err.response.data) {
-        console.error(err.response.data); // Log the error response for debugging
-        setError('Error fetching data: ' + err.response.data); // Set error message
-      } else {
-        setError('Error fetching data');
-        console.error(err);
-      }
+      retries -= 1;
+      console.error("Retrying...", retries, err);
+      if (retries === 0) setError("Error fetching data after multiple attempts");
     }
+  }
   };
   //get route
   

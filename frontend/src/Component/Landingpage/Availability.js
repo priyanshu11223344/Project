@@ -36,7 +36,7 @@ const Availability = () => {
     }, [0]); // Empty dependency array to run on mount
 
     return (
-        <div>
+        <div className='main-c'>
             <div className='container'>
                 <div className='main-text'><h1>WELCOME TO OUR SERVICES</h1></div>
                 <div className='card-main'>

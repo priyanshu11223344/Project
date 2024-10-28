@@ -14,8 +14,7 @@ const HotelOffers = () => {
     //         fetchData(storedCheckin)
     //      }
     // }, []);
-    console.log("data is", data);
-
+    console.log("data is", data); 
     const stripHtml = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;
