@@ -4,9 +4,9 @@ import cors from 'cors';
 import Stripe from 'stripe';
 
 import { parseString } from 'xml2js';
-const stripe = new Stripe('sk_test_51QErKCCKkgmSQ5qkuPT5UicR3aDB2U6eUopL6ubweMnLHjdqbc6veQgCbyvmYZYwHsogim3MjH5faydhy6NChLmF00ZrWEJT66');
-const app = express();
 
+const app = express();
+const stripe = new Stripe('sk_test_51QErKCCKkgmSQ5qkuPT5UicR3aDB2U6eUopL6ubweMnLHjdqbc6veQgCbyvmYZYwHsogim3MjH5faydhy6NChLmF00ZrWEJT66');
 // Allow requests from your frontend's origin
 app.use(cors({
    origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
