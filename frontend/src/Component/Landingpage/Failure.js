@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './Failure.css'
 const Failure = () => {
     const handleRetry = () => {
         // Logic to retry the payment or redirect to the appropriate page
