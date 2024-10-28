@@ -1,7 +1,10 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
+import Stripe from 'stripe';
+
 import { parseString } from 'xml2js';
+const stripe = new Stripe('sk_test_51QErKCCKkgmSQ5qkuPT5UicR3aDB2U6eUopL6ubweMnLHjdqbc6veQgCbyvmYZYwHsogim3MjH5faydhy6NChLmF00ZrWEJT66');
 const app = express();
 
 // Allow requests from your frontend's origin
@@ -70,6 +73,23 @@ app.post('/send-soap-request', async (req, res) => {
   } catch (error) {
     console.error('Error sending SOAP request:', error);
     res.status(500).send('Error sending SOAP request');
+  }
+});
+app.post('/create-payment-intent', async (req, res) => {
+  const { amount, currency } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount, // Amount in cents
+      currency: currency || 'usd',
+    });
+
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error('Error creating payment intent:', error);
+    res.status(500).send('Error creating payment intent');
   }
 });
 

@@ -3,11 +3,13 @@ import Cardcomponent from './Cardcomponent';
 import Hotelcontext from '../../context/Hotelcontext';
 import './HotelOffers.css';
 import { Audio } from 'react-loader-spinner';
-
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+const stripePromise = loadStripe('pk_test_51QErKCCKkgmSQ5qkmnBDZTbCaWm5YpMH3Jm53JxIcYg39EqXWDpOy6sAPIJlToG3yTzN53xlWrou2OpSEtiD9sgN00i1v6Ge2o');
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
-    const [temp, setTemp] = useState([]);
+    // const [temp, setTemp] = useState([]);
 
     const stripHtml = (html) => {
         const div = document.createElement('div');
@@ -23,15 +25,41 @@ const HotelOffers = () => {
         return remark;
     };
 
-    const handleBookClick = (hotelDetails) => {
+    const handleBookClick = async (hotelDetails) => {
         console.log("Hotel details:", hotelDetails);
-        setTemp(hotelDetails);
+    
+        const stripe = await stripePromise;
+    
+        try {
+            // Send the request to create a payment intent
+            const response = await axios.post('https://project-1-back.vercel.app/create-payment-intent', {
+                amount: Math.round(hotelDetails.Offers[0].TotalPrice * 100), // Amount in cents
+                currency: hotelDetails.Offers[0].Currency || 'usd'
+            });
+    
+            const { clientSecret } = response.data;
+    
+            // Use a Stripe test card token for testing purposes
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: 'pm_card_visa' // Stripe's predefined test token
+            });
+    
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent.status === 'succeeded') {
+                console.log('Payment successful!');
+                // Additional actions, like redirecting to a success page or storing booking details
+            }
+        } catch (error) {
+            console.error('Error processing payment:', error);
+        }
     };
+    
 
     // Log temp state whenever it updates
-    useEffect(() => {
-        console.log("Updated temp:", temp);
-    }, [temp]);
+    // useEffect(() => {
+    //     console.log("Updated temp:", temp);
+    // }, [temp]);
 
     return (
         <div>
