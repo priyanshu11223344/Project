@@ -77,6 +77,8 @@ app.post('/send-soap-request', async (req, res) => {
 });
 app.post('/create-payment-intent', async (req, res) => {
   const { amount, currency } = req.body;
+  console.log('Received amount:', amount);
+    console.log('Received currency:', currency);
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
