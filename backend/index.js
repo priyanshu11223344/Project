@@ -97,6 +97,36 @@ app.post('/create-payment-intent', async (req, res) => {
     res.status(500).send('Error creating payment intent');
   }
 });
+app.post('/create-checkout-session', async (req, res) => {
+  const { amount, currency } = req.body;
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: currency,
+            product_data: {
+              name: 'Your Product Name',
+            },
+            unit_amount: amount, // amount in cents
+          },
+          quantity: 1, // Change as needed
+        },
+      ],
+      mode: 'payment',
+      success_url: 'http://localhost:3000/success', // Redirect after successful payment
+      cancel_url: 'http://localhost:3000/cancel', // Redirect if payment is cancelled
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).send({ error: 'Failed to create checkout session' });
+  }
+});
+
 
 
 const port = process.env.PORT || 8000;

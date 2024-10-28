@@ -5,7 +5,7 @@ import './HotelOffers.css';
 import { Audio } from 'react-loader-spinner';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-const stripePromise = loadStripe('pk_test_51QErKCCKkgmSQ5qkmnBDZTbCaWm5YpMH3Jm53JxIcYg39EqXWDpOy6sAPIJlToG3yTzN53xlWrou2OpSEtiD9sgN00i1v6Ge2o');
+const stripePromise = loadStripe('');
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
@@ -34,22 +34,18 @@ const HotelOffers = () => {
             // Send the request to create a payment intent
             const response = await axios.post('https://project-1-back.vercel.app/create-payment-intent', {
                 amount: hotelDetails.Offers[0].TotalPrice * 100, // Amount in cents
-                currency: hotelDetails.Offers[0].Currency || 'usd'
+                currency: hotelDetails.Offers[0].Currency || 'usd',
+                name:hotelDetails.HotelName
             });
     
-            const { clientSecret } = response.data;
+            const sessionId=response.data.id;
     
             // Use a Stripe test card token for testing purposes
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: 'pm_card_visa' // Stripe's predefined test token
-            });
-    
-            if (result.error) {
-                console.error(result.error.message);
-            } else if (result.paymentIntent.status === 'succeeded') {
-                console.log('Payment successful!');
-                // Additional actions, like redirecting to a success page or storing booking details
-            }
+            const stripe=window.Stripe('pk_test_51QErKCCKkgmSQ5qkmnBDZTbCaWm5YpMH3Jm53JxIcYg39EqXWDpOy6sAPIJlToG3yTzN53xlWrou2OpSEtiD9sgN00i1v6Ge2o')
+            const {error}=await stripe.redirectToCheckout({sessionId});
+            if(error){
+                console.log('Error redirecting to Stripe Checkout:',error);
+            }       
         } catch (error) {
             console.error('Error processing payment:', error);
         }
