@@ -5,6 +5,7 @@ import Hotelstate from "./context/Hotelstate"
 import Availability from './Component/Landingpage/Availability';
 // import { Hotel } from '@mui/icons-material';
 // import HotelOffers from './Component/Landingpage/HotelOffers';
+import Success from './Component/Landingpage/Success';
 
 function App() {
     return (
@@ -13,7 +14,7 @@ function App() {
             <Routes>
             <Route path='/' element={<Frontpage />}/> 
             <Route path='/Availability' element={<Availability/>}/> 
-            
+            <Route path='/success' element={<Success/>}></Route>
             </Routes>
         </Router>
         </Hotelstate>

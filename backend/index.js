@@ -117,8 +117,8 @@ app.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: 'http://localhost:3000/success', // Redirect after successful payment
-      cancel_url: 'http://localhost:3000/cancel', // Redirect if payment is cancelled
+      success_url: 'https://project-1-front.vercel.app/success', // Redirect after successful payment
+      cancel_url: 'https://project-1-front.vercel.app/cancel', // Redirect if payment is cancelled
     });
 
     res.json({ id: session.id });
