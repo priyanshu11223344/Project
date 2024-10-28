@@ -16,7 +16,7 @@ const Cardcomponent = (props) => {
   <ul className="list-group list-group-flush">
     <li className="list-group-item">{props.Special}</li>
     <li className="list-group-item">{props.remark}</li>
-    <li className="list-group-item">A third item</li>
+    <button className='btn btn-primary'>BOOK</button>
   </ul>
   <div className="card-body">
     <a href="#" className="card-link" >Card link</a>
