@@ -103,24 +103,24 @@ function Login({ closeModal }) {
                         <div className="submit-container">
                             {action === "signup" ? (
                                 <div className="submit" onClick={handleSignup}>
-                                    Sign Up
+                                    submit
                                 </div>
                             ) : (
                                 <div className="submit" onClick={handleLogin}>
-                                    Login
+                                    submit
                                 </div>
                             )}
                             <div
                                 className={action === "signup" ? "submit active" : "submit"}
                                 onClick={() => setAction("signup")}
                             >
-                                Sign Up
+                                submit
                             </div>
                             <div
                                 className={action === "Login" ? "submit active" : "submit"}
                                 onClick={() => setAction("Login")}
                             >
-                                Login
+                                submit
                             </div>
                         </div>
 
