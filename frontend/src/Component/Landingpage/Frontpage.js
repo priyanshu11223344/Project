@@ -37,6 +37,7 @@ const Frontpage = () => {
 
         if (!isLoggedIn) {
             alert('Please log in to check availability.');
+            toggleLoginModal();
             return;
         }
 
@@ -57,11 +58,12 @@ const Frontpage = () => {
     return (
         <div className="booking-container">
             <div className='top-nav'>
-                <button className='btn btn-primary' onClick={remove}>LOGOUT</button>
+                
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
-                <div className='right-side'> 
+                <div className='right-side'>
+                <button className='btn btn-primary' onClick={remove}>LOGOUT</button> 
                     <div className="menu-icon" onClick={toggleLoginModal}>
                         <i className="bi bi-person-circle"></i>
                     </div>
