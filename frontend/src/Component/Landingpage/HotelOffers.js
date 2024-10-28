@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Cardcomponent from './Cardcomponent';
 import Hotelcontext from '../../context/Hotelcontext';
 import './HotelOffers.css';
@@ -7,7 +7,7 @@ import { Audio } from 'react-loader-spinner';
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const { fetchData, data } = context;
-
+    const [temp,setTemp]=useState();
     // Helper functions
     const stripHtml = (html) => {
         const div = document.createElement('div');
@@ -24,7 +24,9 @@ const HotelOffers = () => {
     };
 
     const handleBookClick = (hotelDetails) => {
-        console.log("Hotel details:", hotelDetails); // Logs the details of the clicked hotel
+        console.log("Hotel details:", hotelDetails);
+        setTemp(hotelDetails);
+        console.log("temp is",temp); // Logs the details of the clicked hotel
     };
 
     return (
