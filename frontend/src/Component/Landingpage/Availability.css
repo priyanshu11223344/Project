@@ -1,9 +1,11 @@
 .main-c{
     background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    min-width: 100vh;
+    max-width: fit-content;
 }
 .container{
     background-color: yellow;
-    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    /* background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%); */
     width: 100%;
 
 }
