@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './Frontpage.css';
-import logoimage from '../../images/logo withoutBG.png'; 
+import logoimage from '../../images/logo withoutBG.png';
 import { useNavigate } from 'react-router-dom';
 import Login from "../Loginsignup/Loginsignup";
 import Sideslidebar from './sideslidebar';
@@ -11,7 +11,7 @@ const Frontpage = () => {
     const [children, setChildren] = useState(1);
     const [checkin, setCheckin] = useState('');
     const [showLogin, setShowLogin] = useState(false);
-    const history = useNavigate(); 
+    const navigate = useNavigate(); 
     const { fetchData } = useContext(Hotelcontext); 
 
     const incrementAdults = () => setAdults(adults + 1);
@@ -27,13 +27,12 @@ const Frontpage = () => {
         }
         return '';
     };
-   
+
     const handleCheckAvailability = (e) => {
         e.preventDefault();
-    
-        // Check if user is logged in
+
         const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-        const isLoggedIn = existingUsers.length > 0; // Adjust this condition based on your login logic
+        const isLoggedIn = existingUsers.length > 0;
 
         if (!isLoggedIn) {
             alert('Please log in to check availability.');
@@ -42,34 +41,33 @@ const Frontpage = () => {
         }
 
         const formattedCheckin = formatDate(checkin);
-    
+
         if (formattedCheckin) {
             localStorage.setItem('checkin', formattedCheckin);
             fetchData(formattedCheckin);
-            history("/Availability");
+            navigate("/Availability");
         } else {
             alert('Please enter valid check-in and check-out dates');
         }
     };
-    const remove=()=>{
+
+    const handleLogout = () => {
         localStorage.removeItem("users");
-    }
+        navigate("/"); // Redirect to homepage
+    };
 
     return (
-        <div className="booking-container">
+        <div className="booking-container ">
             <div className='top-nav'>
-                
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
                 <div className='right-side'>
-                <button className='btn btn-primary' onClick={remove}>LOGOUT</button> 
+                    <button className='btn btn-primary' onClick={handleLogout}>LOGOUT</button> 
                     <div className="menu-icon" onClick={toggleLoginModal}>
                         <i className="bi bi-person-circle"></i>
                     </div>
-                    <div>
-                        <Sideslidebar/>  
-                    </div>
+                    <Sideslidebar/>  
                 </div>
             </div>
             <div className="hero">
@@ -121,7 +119,7 @@ const Frontpage = () => {
                     </form>
                 </div>
             </div>
-            {showLogin && <Login closeModal={toggleLoginModal} />}
+            <div className='LoginSignup'>{showLogin && <Login closeModal={toggleLoginModal} />}</div>
         </div>
     );
 };

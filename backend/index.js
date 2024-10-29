@@ -8,7 +8,8 @@ import { parseString } from 'xml2js';
 const app = express();
 
 // Allow requests from your frontend's origin
-const url='https://project-1-front.vercel.app';
+// const url='https://project-1-front.vercel.app';
+const url='http://localhost:3000';
 app.use(cors({
    origin: url, // Make sure this matches your frontend
   methods: ["POST", "GET", "OPTIONS"],

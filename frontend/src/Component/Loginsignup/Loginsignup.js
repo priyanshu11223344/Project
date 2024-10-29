@@ -4,30 +4,41 @@ import user_icon from '../Assets/person.png';
 import user_pass from '../Assets/password.png';
 import user_email from '../Assets/email.png';
 import logo from "../../images/hd2.jpg";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function Login({ closeModal }) {
-    const [action, setAction] = useState("Login");
-    const [name, setName] = useState(""); // For signup
+    const [isRightPanelActive, setRightPanelActive] = useState(false);
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(""); // For error messages
-    const [success, setSuccess] = useState(""); // For success messages
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
-    const handleSignup = () => {
-        // Validate fields
+    const handleSignUpClick = () => {
+        setRightPanelActive(true);
+    };
+
+    const handleSignInClick = () => {
+        setRightPanelActive(false);
+    };
+
+    const handleSignup = (e) => {
+        e.preventDefault();
         if (!name || !email || !password) {
             setError("All fields are required!");
             setSuccess("");
+            setTimeout(() => setError(""), 3000);
             return;
         }
 
-        // Save user data to localStorage
         const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
         const userExists = existingUsers.find(user => user.email === email);
 
         if (userExists) {
             setError("User already exists!");
             setSuccess("");
+            setTimeout(() => setError(""), 3000);
             return;
         }
 
@@ -37,16 +48,19 @@ function Login({ closeModal }) {
 
         setSuccess("Signup successful! You can now log in.");
         setError("");
-        setName(""); // Reset form fields
-        setEmail("");
-        setPassword("");
+        setTimeout(() => {
+            setName("");
+            setEmail("");
+            setPassword("");
+        }, 2000);
     };
 
-    const handleLogin = () => {
-        // Validate fields
+    const handleLogin = (e) => {
+        e.preventDefault();
         if (!email || !password) {
             setError("Email and password are required!");
             setSuccess("");
+            setTimeout(() => setError(""), 3000);
             return;
         }
 
@@ -57,101 +71,98 @@ function Login({ closeModal }) {
             setSuccess("Login successful!");
             alert("Successful Login");
             setError("");
-            // Here you can redirect to another page or perform other actions after successful login
         } else {
             setError("Invalid email or password!");
             alert("Invalid Credentials");
             setSuccess("");
+            setTimeout(() => setError(""), 3000);
         }
     };
 
     return (
         <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <div className="login-container">
-                    <div className="login-image">
-                        <img src={logo} alt="Login" />
+                <div className={`container ${isRightPanelActive ? "right-panel-active" : ""}`} id="container">
+                    <div className="form-container sign-up-container">
+                        <form onSubmit={handleSignup}>
+                            <h1>Create Account</h1>
+                            <div className="social-container">
+                                <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
+                                <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
+                                <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
+                            </div>
+                            <span>or use your email for registration</span>
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {error && <div className="error-message">{error}</div>}
+                            {success && <div className="success-message">{success}</div>}
+                            <button type="submit">Sign Up</button>
+                        </form>
                     </div>
 
-                    <div className="login-form">
-                        <div className="header">
-                            <h2>{action === "signup" ? "Sign Up" : "Login"}</h2>
-                            <div className="underline"></div>
-                        </div>
-
-                        <div className="inputs">
-                            {action === "signup" && (
-                                <div className="input">
-                                    <img src={user_icon} alt="User Icon" />
-                                    <input
-                                        type="text"
-                                        placeholder="Name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                </div>
-                            )}
-                            <div className="input">
-                                <img src={user_email} alt="Email Icon" />
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                    <div className="form-container sign-in-container">
+                        <form onSubmit={handleLogin}>
+                            <h1>Login</h1>
+                            <div className="social-container">
+                                <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
+                                <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
+                                <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
                             </div>
-                            <div className="input">
-                                <img src={user_pass} alt="Password Icon" />
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                            <span>or use your account</span>
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <a href="#">Forgot your password?</a>
+                            {error && <div className="error-message">{error}</div>}
+                            {success && <div className="success-message">{success}</div>}
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+
+                    <div className="overlay-container">
+                        <div className="overlay">
+                            <div className="overlay-panel overlay-left">
+                                <h1>Welcome Back!</h1>
+                                <p>To keep connected with us please login with your personal info</p>
+                                <button className="ghost" onClick={handleSignInClick}>Login</button>
                             </div>
-                        </div>
-
-                        {error && <div className="error-message">{error}</div>}
-                        {success && <div className="success-message">{success}</div>}
-
-                        <div className="submit-container">
-                        <div className="toggle-action">
-                            {action === "signup" ? (
-                                <div className="submit" onClick={handleSignup}>
-                                    SUBMIT
-                                </div>
-                            ) : (
-                                <div className="submit" onClick={handleLogin}>
-                                    SUBMIT
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="toggle-action">
-                            {action === "signup" ? (
-                                <div
-                                    className="submit active"
-                                    onClick={() => setAction("Login")}
-                                >
-                                    Login
-                                </div>
-                            ) : (
-                                <div
-                                    className="submit active"
-                                    onClick={() => setAction("signup")}
-                                >
-                                    Sign Up
-                                </div>
-                            )}
-                        </div>
-                        </div>
-
-                        {/* Close Button */}
-                        <div className="close-button" onClick={closeModal}>
-                            &times;
+                            <div className="overlay-panel overlay-right">
+                                <h1>Hello, Friend!</h1>
+                                <p>Enter your personal details and start your journey with us</p>
+                                <button className="ghost" onClick={handleSignUpClick}>Sign Up</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                {/* <div className="close-button" onClick={closeModal}>
+                    &times;
+                </div> */}
             </div>
         </div>
     );

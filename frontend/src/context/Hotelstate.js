@@ -8,7 +8,8 @@ const HotelProvider = (props) => {
   const [data1,setData1]=useState([]);
   const [error, setError] = useState('');
   const [check, setCheck] = useState('');
- const url_back='https://project-1-back.vercel.app';
+//  const url_back='https://project-1-back.vercel.app';
+const url_back='http://localhost:8000';
   const fetchData = async (check) => {
     console.log(check);
     const soapXML = `<?xml version="1.0" encoding="utf-8"?>
