@@ -442,7 +442,7 @@
 }
 
 .overlay {
-    background: url('../../images/hd2.jpg') no-repeat center center; /* Add your background image path here */
+    background: url('../../images/hd2.jpg') no-repeat center center;  /* Add your background image path here */
     background-size: cover; /* This ensures the image covers the entire area */
     background-blend-mode: overlay; /* This blends the gradient with the background image */
     color: #FFFFFF;
