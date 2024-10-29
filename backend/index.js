@@ -60,7 +60,7 @@ app.post('/send-soap-request', async (req, res) => {
         // If makeRequestResult is in JSON string format within XML, parse it
         try {
           const parsedData = JSON.parse(makeRequestResult);  // Ensure makeRequestResult is a JSON string
-          console.log( "parseddata is:", parsedData);
+          // console.log( "parseddata is:", parsedData);
           res.send(parsedData)
           // setData(parsedData.Hotels);  // Assuming parsedData contains a 'Hotels' key
         } catch (jsonParseError) {
@@ -78,8 +78,8 @@ app.post('/send-soap-request', async (req, res) => {
 const stripe = new Stripe('sk_test_51QErKCCKkgmSQ5qkuPT5UicR3aDB2U6eUopL6ubweMnLHjdqbc6veQgCbyvmYZYwHsogim3MjH5faydhy6NChLmF00ZrWEJT66');
 app.post('/create-payment-intent', async (req, res) => {
   const { amount, currency } = req.body;
-  console.log('Received amount:', amount);
-    console.log('Received currency:', currency);
+  // console.log('Received amount:', amount);
+  //   console.log('Received currency:', currency);
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({ 

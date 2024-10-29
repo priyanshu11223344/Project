@@ -1,7 +1,7 @@
 import React from 'react'
 import './Success.css';
 const Success = () => {
-    console.log("Success component rendered"); 
+    // console.log("Success component rendered"); 
   return (
     <div>
        <div className="success-container">

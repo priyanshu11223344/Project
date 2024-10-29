@@ -11,7 +11,7 @@ const HotelProvider = (props) => {
   const url_back='https://project-1-back.vercel.app';
 // const url_back='http://localhost:8000';
   const fetchData = async (check) => {
-    console.log(check);
+    // console.log(check);
     const soapXML = `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
       <soap12:Body>
@@ -69,7 +69,7 @@ const HotelProvider = (props) => {
         headers: { 'Content-Type': 'application/xml' },
         timeout: 10000,  // Set a timeout of 10 seconds
       });
-      console.log("data fetched", response.data);
+      // console.log("data fetched", response.data);
       setData(response.data);
       success = true;  // Set success flag if request completes
     } catch (err) {

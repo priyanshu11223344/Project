@@ -27,7 +27,7 @@ const HotelOffers = () => {
     };
 
     const handleBookClick = async (hotelDetails) => {
-        console.log("Hotel details:", hotelDetails);
+        // console.log("Hotel details:", hotelDetails);
         
         try {
             // Call backend to create checkout session
