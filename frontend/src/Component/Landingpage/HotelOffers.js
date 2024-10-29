@@ -10,8 +10,8 @@ const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const {  data } = context;
     // const [temp, setTemp] = useState([]);
-    // const url_back='https://project-1-back.vercel.app';
-    const url_back='http://localhost:8000';
+     const url_back='https://project-1-back.vercel.app';
+    // const url_back='http://localhost:8000';
     const stripHtml = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;
