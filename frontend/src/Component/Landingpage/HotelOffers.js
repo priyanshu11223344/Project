@@ -10,7 +10,7 @@ const HotelOffers = () => {
     const context = useContext(Hotelcontext);
     const {  data } = context;
     // const [temp, setTemp] = useState([]);
-
+    const url_back='https://project-1-back.vercel.app';
     const stripHtml = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;
@@ -30,7 +30,7 @@ const HotelOffers = () => {
         
         try {
             // Call backend to create checkout session
-            const response = await axios.post('https://project-1-back.vercel.app/create-checkout-session', {
+            const response = await axios.post(`${url_back}/create-checkout-session`, {
                 amount: hotelDetails.Offers[0].TotalPrice * 100, // Amount in cents
                 currency: hotelDetails.Offers[0].Currency || 'usd',
                 name:hotelDetails.HotelName,

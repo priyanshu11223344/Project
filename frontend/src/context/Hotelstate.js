@@ -8,7 +8,7 @@ const HotelProvider = (props) => {
   const [data1,setData1]=useState([]);
   const [error, setError] = useState('');
   const [check, setCheck] = useState('');
-
+ const url_back='https://project-1-back.vercel.app';
   const fetchData = async (check) => {
     console.log(check);
     const soapXML = `<?xml version="1.0" encoding="utf-8"?>
@@ -63,7 +63,7 @@ const HotelProvider = (props) => {
 
   while (retries > 0 && !success) {
     try {
-       const response = await axios.post('https://project-1-back.vercel.app/send-soap-request', soapXML, {
+       const response = await axios.post(`${url_back}/send-soap-request`, soapXML, {
         // const response = await axios.post('http://localhost:8000/send-soap-request', soapXML, {
         headers: { 'Content-Type': 'application/xml' },
         timeout: 10000,  // Set a timeout of 10 seconds

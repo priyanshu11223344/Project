@@ -8,9 +8,9 @@ import { parseString } from 'xml2js';
 const app = express();
 
 // Allow requests from your frontend's origin
+const url='https://project-1-front.vercel.app';
 app.use(cors({
-   origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
-    // origin: 'https://localhost:3000',
+   origin: url, // Make sure this matches your frontend
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true // Add this if using cookies or sessions
@@ -23,14 +23,12 @@ app.use((req, res, next) => {
 app.use(express.json()); 
 
 app.options('/send-soap-request', cors({
-   origin: 'https://project-1-front.vercel.app', // Make sure this matches your frontend
-  // origin: 'https://localhost:3000',
+   origin: url, // Make sure this matches your frontend
 }));
 
 app.use(express.text({ type: 'application/xml' }));
 
 // Variable to store the last SOAP response
-let lastSoapResponse = null;
 
 // GET route
 app.get('/', (req, res) => {
@@ -117,8 +115,8 @@ app.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: 'https://project-1-front.vercel.app/success', // Redirect after successful payment
-      cancel_url: 'https://project-1-front.vercel.app/cancel', // Redirect if payment is cancelled
+      success_url: `${url}/success`, // Redirect after successful payment
+      cancel_url: `${url}/cancel`, // Redirect if payment is cancelled
     });
 
     res.json({ id: session.id });
