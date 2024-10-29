@@ -4,7 +4,7 @@ import user_icon from '../Assets/person.png';
 import user_pass from '../Assets/password.png';
 import user_email from '../Assets/email.png';
 import logo from "../../images/hd2.jpg";
-// import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function Login({ closeModal }) {
@@ -87,9 +87,7 @@ function Login({ closeModal }) {
                         <form onSubmit={handleSignup}>
                             <h1>Create Account</h1>
                             <div className="social-container">
-                                {/* <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                                <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                                <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a> */}
+                             
                             </div>
                             <span>or use your email for registration</span>
                             <input
