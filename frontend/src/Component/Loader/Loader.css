@@ -1,0 +1,33 @@
+/* Loader.css */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+    background-color: #ffffff;
+  }
+  
+  .loader-logo {
+    width: 350px; /* Adjust the size as needed */
+    animation: slideInOut 3s ease-in-out infinite;
+  }
+  
+  @keyframes slideInOut {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    25% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    75% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+  

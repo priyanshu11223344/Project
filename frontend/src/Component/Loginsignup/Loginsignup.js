@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import './Loginsignup.css';
-
-
-
+import { Link, useNavigate } from "react-router-dom";
 
 function Login({ closeModal }) {
     const [isRightPanelActive, setRightPanelActive] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
+    const [cred, setCred] = useState({ name: "", email: "", password: "" });
+    const [logcred, setLogCred] = useState({ logemail: "", logpass: "" });
 
     const handleSignUpClick = () => {
         setRightPanelActive(true);
@@ -20,97 +18,94 @@ function Login({ closeModal }) {
         setRightPanelActive(false);
     };
 
-    const handleSignup = (e) => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
-        if (!name || !email || !password) {
-            setError("All fields are required!");
-            setSuccess("");
-            setTimeout(() => setError(""), 3000);
-            return;
+        const { name, email, password } = cred;
+        const response = await fetch("http://localhost:8000/newuser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+        const json = await response.json();
+        console.log(json);
+
+        if (json.success) {
+            localStorage.setItem("token", json.authtoken);
+            localStorage.setItem("userId", json.userId);
+            navigate("/verify-otp"); // Redirect to OTP verification
+        } else {
+            alert("Invalid credentials");
         }
-
-        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-        const userExists = existingUsers.find(user => user.email === email);
-
-        if (userExists) {
-            setError("User already exists!");
-            setSuccess("");
-            setTimeout(() => setError(""), 3000);
-            return;
-        }
-
-        const newUser = { name, email, password };
-        existingUsers.push(newUser);
-        localStorage.setItem("users", JSON.stringify(existingUsers));
-
-        setSuccess("Signup successful! You can now log in.");
-        setError("");
-        setTimeout(() => {
-            setName("");
-            setEmail("");
-            setPassword("");
-        }, 2000);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        if (!email || !password) {
-            setError("Email and password are required!");
-            setSuccess("");
-            setTimeout(() => setError(""), 3000);
-            return;
-        }
+        const { logemail, logpass } = logcred;
+        const response = await fetch("http://localhost:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: logemail, password: logpass })
+        });
+        const data = await response.json();
+        console.log(data);
 
-        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-        const user = existingUsers.find(user => user.email === email && user.password === password);
-
-        if (user) {
-            setSuccess("Login successful!");
-            alert("Successful Login");
-            setError("");
+        if (data.success) {
+            localStorage.setItem("token", data.authtoken);
+            localStorage.setItem("email", logemail);
+            closeModal();
+            alert("Logged in");
         } else {
-            setError("Invalid email or password!");
-            alert("Invalid Credentials");
-            setSuccess("");
-            setTimeout(() => setError(""), 3000);
+            alert("Invalid credentials");
         }
+    };
+
+    const onChange = (e) => {
+        setCred({ ...cred, [e.target.name]: e.target.value });
+    };
+
+    const onChange2 = (e) => {
+        setLogCred({ ...logcred, [e.target.name]: e.target.value });
     };
 
     return (
-        <div className="modal-overlay" onClick={closeModal}>
+        <div className="modal-overlay" onClick={(e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        }}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className={`container ${isRightPanelActive ? "right-panel-active" : ""}`} id="container">
                     <div className="form-container sign-up-container">
-                        <form onSubmit={handleSignup}>
+                        <form onSubmit={handleSignIn}>
                             <h1>Create Account</h1>
-                            <div className="social-container">
-                             
-                            </div>
                             <span>or use your email for registration</span>
                             <input
+                                name="name"
                                 type="text"
                                 placeholder="Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={onChange}
                             />
                             <input
+                                name="email"
                                 type="email"
                                 placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={onChange}
                             />
                             <input
+                                name="password"
                                 type="password"
                                 placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={onChange}
                             />
                             {error && <div className="error-message">{error}</div>}
                             {success && <div className="success-message">{success}</div>}
                             <button type="submit">Sign Up</button>
                         </form>
                     </div>
-
                     <div className="form-container sign-in-container">
                         <form onSubmit={handleLogin}>
                             <h1>Login</h1>
@@ -122,15 +117,15 @@ function Login({ closeModal }) {
                             <span>or use your account</span>
                             <input
                                 type="email"
+                                name="logemail"
                                 placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={onChange2}
                             />
                             <input
                                 type="password"
+                                name="logpass"
                                 placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={onChange2}
                             />
                             <a href="#">Forgot your password?</a>
                             {error && <div className="error-message">{error}</div>}
@@ -138,7 +133,6 @@ function Login({ closeModal }) {
                             <button type="submit">Login</button>
                         </form>
                     </div>
-
                     <div className="overlay-container">
                         <div className="overlay">
                             <div className="overlay-panel overlay-left">
@@ -154,10 +148,6 @@ function Login({ closeModal }) {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className="close-button" onClick={closeModal}>
-                    &times;
-                </div> */}
             </div>
         </div>
     );

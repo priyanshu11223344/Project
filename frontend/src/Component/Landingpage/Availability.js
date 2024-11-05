@@ -3,7 +3,7 @@ import "./Availability.css";
 import HotelOffers from './HotelOffers';
 import Hotelcontext from '../../context/Hotelcontext';
 import { Rings } from 'react-loader-spinner';
-
+import Loader from '../Loader/Loader';
 const Availability = () => {
     const { fetchData } = useContext(Hotelcontext);
     const [showOffers, setShowOffers] = useState(false);
@@ -11,9 +11,6 @@ const Availability = () => {
     const [error, setError] = useState('');
 
     // Function to fetch data with a 10-second delay
-    const handleCheckAvailability =async () => {
-        
-    };
 
     useEffect(() => {
         // Fetch data on component mount if needed
@@ -33,30 +30,24 @@ const Availability = () => {
             });
             
         }
-    }, [0]); // Empty dependency array to run on mount
+    }, []); // Empty dependency array to run on mount
 
     return (
         <div className='main-c'>
-            <div className='container'>
-                <div className='main-text'><h1>WELCOME TO OUR SERVICES</h1></div>
-                <div className='card-main'>
-                    <div className='welcome-text'>AVAILABLE HOTELS</div>
-                    <div className='card'>
-                        {loading && (
+            {loading && (
                             <div className="loader-container">
-                                <Rings
-                                    height="100"
-                                    width="100"
-                                    color="#4fa94d"
-                                    radius="6"
-                                    visible={true}
-                                    ariaLabel="rings-loading"
-                                />
-                                <p>Loading offers...</p>
+                                <Loader/>
                             </div>
                         )}
+            <div className='container'>
+                
+                <div className='card-main'>
+                    
+                    <div className='card'>
+                        
+                      
                         {error && <div>{error}</div>} {/* Show error message if there's an error */}
-                        {showOffers && !loading && !error && <HotelOffers />} {/* Show offers only if not loading and no error */}
+                        {showOffers && !loading && !error &&<HotelOffers />} {/* Show offers only if not loading and no error */}
                     </div>
                 </div>
             </div>

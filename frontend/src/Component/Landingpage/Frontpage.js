@@ -10,8 +10,10 @@ const Frontpage = () => {
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(1);
     const [checkin, setCheckin] = useState('');
+    const [checkout, setCheckout] = useState('');
     const [showLogin, setShowLogin] = useState(false);
-    const navigate = useNavigate(); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Rename check to isLoggedIn for clarity
+    const navigate = useNavigate();
     const { fetchData } = useContext(Hotelcontext); 
 
     const incrementAdults = () => setAdults(adults + 1);
@@ -19,7 +21,7 @@ const Frontpage = () => {
     const incrementChildren = () => setChildren(children + 1);
     const decrementChildren = () => children > 1 && setChildren(children - 1);
     const toggleLoginModal = () => setShowLogin(!showLogin);
-
+    
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         if (!isNaN(date)) {
@@ -28,46 +30,55 @@ const Frontpage = () => {
         return '';
     };
 
+    // Check for token on component mount and when showLogin changes
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token); // Set isLoggedIn to true if token exists
+    }, [showLogin]); // Re-check when showLogin changes to reflect login/logout
+
     const handleCheckAvailability = (e) => {
         e.preventDefault();
 
-        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-        const isLoggedIn = existingUsers.length > 0;
+        const formattedCheckin = formatDate(checkin);
+        const formattedCheckout = formatDate(checkout);
 
-        if (!isLoggedIn) {
-            alert('Please log in to check availability.');
-            toggleLoginModal();
+        if (!formattedCheckin || !formattedCheckout) {
+            alert('Please enter valid check-in and check-out dates');
             return;
         }
 
-        const formattedCheckin = formatDate(checkin);
-
-        if (formattedCheckin) {
-            localStorage.setItem('checkin', formattedCheckin);
-            fetchData(formattedCheckin);
-            navigate("/Availability");
-        } else {
-            alert('Please enter valid check-in and check-out dates');
+        if (formattedCheckin === formattedCheckout) {
+            alert('Check-out date must be different from check-in date');
+            return;
         }
+
+        localStorage.setItem('checkin', formattedCheckin);
+        fetchData(formattedCheckin);
+        navigate("/Availability");
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("users");
-        navigate("/"); // Redirect to homepage
+        localStorage.removeItem("token");
+        setIsLoggedIn(false); // Update the state immediately on logout
+        alert("Logged out successfully");
     };
 
+    const today = new Date().toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
+
     return (
-        <div className="booking-container ">
+        <div className="booking-container">
             <div className='top-nav'>
                 <div className="logo">
                     <img src={logoimage} alt="Logo" height='60px' width='900px' />
                 </div>
                 <div className='right-side'>
-                    <button className='btn btn-primary' onClick={handleLogout}>LOGOUT</button> 
-                    <div className="menu-icon" onClick={toggleLoginModal}>
-                        <i className="bi bi-person-circle"></i>
+                    <div>
+                        {localStorage.getItem("token") ? (
+                            <button className='custom-button' onClick={handleLogout}>LOGOUT</button>
+                        ) : (
+                            <button className="custom-button" onClick={toggleLoginModal}>Login or Create Account</button>
+                        )}
                     </div>
-                    <Sideslidebar/>  
                 </div>
             </div>
             <div className="hero">
@@ -84,17 +95,19 @@ const Frontpage = () => {
                             <input 
                                 type="date" 
                                 value={checkin} 
+                                min={today} // Prevent past dates
                                 onChange={(e) => setCheckin(e.target.value)} 
                                 required 
-                                pattern="\d{4}-\d{2}-\d{2}"
                             />
                         </div>
                         <div className="form-group">
                             <div>Check-out</div>
                             <input 
                                 type="date" 
+                                value={checkout}
+                                min={checkin || today} // Prevent past dates and enforce after check-in
+                                onChange={(e) => setCheckout(e.target.value)}
                                 required 
-                                pattern="\d{4}-\d{2}-\d{2}"
                             />
                         </div>
                         <div className="form-group">

@@ -8,8 +8,9 @@ const HotelProvider = (props) => {
   const [data1,setData1]=useState([]);
   const [error, setError] = useState('');
   const [check, setCheck] = useState('');
-  const url_back='https://project-1-back.vercel.app';
-// const url_back='http://localhost:8000';
+  const[info,setinfo]=useState([]);
+  //const url_back='https://project-1-back.vercel.app';
+ const url_back='http://localhost:8000';
   const fetchData = async (check) => {
     // console.log(check);
     const soapXML = `<?xml version="1.0" encoding="utf-8"?>
@@ -69,7 +70,7 @@ const HotelProvider = (props) => {
         headers: { 'Content-Type': 'application/xml' },
         timeout: 10000,  // Set a timeout of 10 seconds
       });
-      // console.log("data fetched", response.data);
+      console.log("data fetched", response.data);
       setData(response.data);
       success = true;  // Set success flag if request completes
     } catch (err) {
@@ -80,11 +81,57 @@ const HotelProvider = (props) => {
   }
   };
   //get route
+  const infodata = async (code) => {
+    // console.log(check);
+    const soapXML = `<?xml version="1.0" encoding="utf-8"?>
+    <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+    <soap12:Body>
+    <MakeRequest xmlns="http://www.goglobal.travel/">
+    <requestType>6</requestType>
+    <xmlRequest><![CDATA[
+    <Root>
+    <Header>
+    <Agency>148535</Agency>
+    <User>REISENBOOKINGXMLTEST</User>
+    <Password>JHJDO58X0EV</Password>
+    <Operation>HOTEL_INFO_REQUEST</Operation>
+    <OperationType>Request</OperationType>
+    </Header>
+    <Main Version="2.2">
+    <InfoHotelId>${code}</InfoHotelId>
+    <InfoLanguage>en</InfoLanguage>
+    </Main>
+    </Root>
+    ]]></xmlRequest>
+    </MakeRequest>
+    </soap12:Body>
+    </soap12:Envelope>`;
+
+    let iretries = 2;
+  let isuccess = false;
+
+  while (iretries > 0 && !isuccess) {
+    try {
+       const response = await axios.post(`${url_back}/hotelinfo`, soapXML, {
+        // const response = await axios.post('http://localhost:8000/send-soap-request', soapXML, {
+        headers: { 'Content-Type': 'application/xml' },
+        timeout: 10000,  // Set a timeout of 10 seconds
+      });
+      console.log("info-data fetched", response.data);
+      setinfo(response.data);
+      isuccess = true;  // Set success flag if request completes
+    } catch (err) {
+      iretries -= 1;
+      console.error("Retrying...", iretries, err);
+      if (iretries === 0) setError("Error fetching data after multiple attempts at info");
+    }
+  }
+  };
   
   
   
   return (
-    <Hotelcontext.Provider value={{ fetchData, data, error, setCheck, check, }}>
+    <Hotelcontext.Provider value={{ fetchData, data, error, setCheck, check,info,setinfo,infodata }}>
       {props.children}
     </Hotelcontext.Provider>
   );

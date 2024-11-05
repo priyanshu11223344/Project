@@ -1,0 +1,194 @@
+/* Top Navigation Styles */
+.hotelinfo-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: aqua;
+}
+
+.hotelinfo-logo img {
+  width: 280px;
+}
+
+.hotelinfo-right-side {
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
+  margin-right: 10px;
+  padding-left: 10px;
+  color: black;
+}
+
+.hotelinfo-custom-button {
+  font-size: 15px;
+  color: black;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 12px 24px;
+  border-radius: 30px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0px 0px 5px white;
+}
+
+.hotelinfo-custom-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #333;
+  border-color: #333;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero Section Styles */
+.hotelinfo-hero {
+  background-color: #333;
+  padding: 40px 0;
+  color: white;
+}
+
+.hotelinfo-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  text-align: center;
+}
+
+/* Booking Form Styles */
+.hotelinfo-booking-form {
+  display: flex;
+  gap: 20px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.check-availability-button {
+  background-color: #ffba00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.check-availability-button:hover {
+  background-color: #e69a00;
+}
+
+/* Image Collage Styles */
+.image-collage {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.image-item {
+  opacity: 0; /* Start hidden */
+  transition: opacity 1s ease-in-out;
+}
+
+.image-item.visible {
+  opacity: 1; /* Fully visible when .visible is added */
+}
+
+.image-item.large {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+}
+
+.image-item.small {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Modal Styles for Larger Box and Two-Image Layout */
+/* Modal Dialog */
+.custom-modal-width .modal-dialog {
+  width: 800px; /* Fixed width of 800px */
+  max-width: 800px; /* Ensure it doesn’t exceed 800px */
+  margin: auto; /* Center the modal */
+}
+
+/* Image Grid in Modal */
+.modal-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 300px); /* Two images per row, 300px each */
+  gap: 10px; /* Space between images */
+  justify-content: center;
+}
+
+/* Image Container */
+.image-container {
+  position: relative;
+}
+
+/* Images in Modal */
+.modal-image {
+  width: 350px; /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: cover; /* Maintain cover without distortion */
+  border-radius: 8px;
+}
+
+/* Image Description (optional) */
+.image-description {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* Error Message Styles */
+.error-message {
+  color: red;
+  background-color: #fdd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hotelinfo-booking-form {
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .image-collage {
+    grid-template-columns: 1fr;
+  }
+
+  .hotelinfo-logo img {
+    width: 150px;
+  }
+
+  .modal-image-grid {
+    grid-template-columns: 1fr; /* One image per row on small screens */
+  }
+
+  .custom-modal-width .modal-dialog {
+    width: 90%; /* Reduce modal width for small screens */
+    max-width: unset; /* Allow full width */
+  }
+}

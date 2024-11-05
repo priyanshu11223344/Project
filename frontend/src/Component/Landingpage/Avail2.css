@@ -1,0 +1,119 @@
+body{
+    background-color: white;
+}
+.avail2-top-nav {
+    display: flex;
+    justify-content: space-between; /* Space between the logo and icon */
+    align-items: center; /* Aligns items vertically */
+    padding: 10px 20px; /* Adjust as needed */
+    background-color: transparent; /* Optional: set background if needed */
+    position: relative; /* Optional: helps in positioning */
+    background-color: aqua;
+  }
+  .avail2-logo img {
+    width: 280px;
+  }
+  .avail2-right-side{
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+    margin-right: 10px;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+  }
+  .avail2-custom-button{
+    font-size: 15px;
+    color: black;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Light border */
+    padding: 12px 24px;
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: transparent;
+    
+  }
+  .avail2-booking-form {
+    background-color: rgba(255, 255, 255, 0.8); 
+    position: relative;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    border: 2px solid red;
+  }
+  .avail2-hero {
+    /* background-image: url('../../images/s2.jpg'); Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+  }
+  
+  .avail2-hero-content h1  {
+    font-size: 57px;
+    margin-bottom: 20px;
+    top: 20px;
+    font-family: "Afacad Flux", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+
+    
+    
+   
+  }
+  .avail2-hero-content h3{
+    font-size: 30px;
+    font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+
+  }
+  .avail2-sort-by {
+    display: flex;
+align-items:last baseline;
+justify-content: flex-end;
+    margin-top: 20px;
+    font-size: 16px;
+    border: 2px solid red;
+    width: 300px;
+    /* float: right; */
+  }
+  
+  .avail2-sort-by label {
+    margin-right: 8px;
+  }
+  
+  .avail2-sort-by select {
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+  .avail2-search{
+    background-color: antiquewhite;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+
+  
+  .avail2-hotel-search{
+    background-color: green;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: 500px;
+  }

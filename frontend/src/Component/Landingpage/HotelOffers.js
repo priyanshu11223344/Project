@@ -5,13 +5,15 @@ import './HotelOffers.css';
 import { Audio } from 'react-loader-spinner';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // const stripePromise = loadStripe('');
 const HotelOffers = () => {
     const context = useContext(Hotelcontext);
-    const {  data } = context;
+    const navigate = useNavigate();
+    const {  data,infodata } = context;
     // const [temp, setTemp] = useState([]);
-     const url_back='https://project-1-back.vercel.app';
-    // const url_back='http://localhost:8000';
+     //const url_back='https://project-1-back.vercel.app';
+     const url_back='http://localhost:8000';
     const stripHtml = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;
@@ -27,7 +29,7 @@ const HotelOffers = () => {
     };
 
     const handleBookClick = async (hotelDetails) => {
-        // console.log("Hotel details:", hotelDetails);
+        console.log("Hotel details:", hotelDetails);
         
         try {
             // Call backend to create checkout session
@@ -55,18 +57,18 @@ const HotelOffers = () => {
             console.error("Error processing payment:", error);
         }
     };
-    
-    
-
-    // Log temp state whenever it updates
-    // useEffect(() => {
-    //     console.log("Updated temp:", temp);
-    // }, [temp]);
-
+    const handleinfoclick=async(hotelDetails)=>{
+        const val=hotelDetails.HotelCode
+        console.log(val);
+        localStorage.setItem('hotelid', val);
+        infodata(val);
+            navigate("/hotelinfo");
+         // navigate("/hello");
+    }
     return (
         <div>
             {data?.Hotels?.length > 0 ? (
-                <div className="hotelmap">
+                <div >
                     {data.Hotels.map((hotel, index) => (
                         <Cardcomponent
                             key={index}
@@ -78,6 +80,7 @@ const HotelOffers = () => {
                             Special={`Special: ${stripHtml(hotel.Offers?.[0]?.Special || "NONE")}`}
                             remark={`Remark: ${truncateRemark(stripHtml(hotel.Offers?.[0]?.Remark || ''))}`}
                             handleBookClick={() => handleBookClick(hotel)} // Pass hotel details to handleBookClick
+                            handleinfoclick={()=>handleinfoclick(hotel)}
                         />
                     ))}
                 </div>
