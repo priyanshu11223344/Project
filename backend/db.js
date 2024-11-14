@@ -1,8 +1,8 @@
 // db.js
 import mongoose from "mongoose";
-
+const URI=process.env.MONGODB_URI
 const connectToMongo = () => {
-    mongoose.connect("mongodb://127.0.0.1:27017/bloodbank")
+    mongoose.connect(URI)
     .then(() => {
         console.log('Mongoose connected');
     })
