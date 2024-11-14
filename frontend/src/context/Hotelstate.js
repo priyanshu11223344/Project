@@ -7,8 +7,8 @@ const HotelProvider = (props) => {
   const [error, setError] = useState('');
   const [check, setCheck] = useState('');
   const[info,setinfo]=useState([]);
-  //const url_back='https://project-1-back.vercel.app';
- const url_back='http://localhost:8000';
+  const url_back='https://project-1-back.vercel.app';
+ //const url_back='http://localhost:8000';
  const fetchData = async (check,id,scode) => {
   console.log("id in cotext is",id);
   return new Promise(async (resolve, reject) => {
