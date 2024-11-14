@@ -105,7 +105,7 @@ app.post('/hotelinfo', async (req, res) => {
       }
 
       // Log the entire parsed result to see its structure
-      console.log('Parsed XML Result:', JSON.stringify(result, null, 5));
+      console.log('Parsed XML Result:', JSON.stringify(result));
 
       const makeRequestResult = result['soap:Envelope']['soap:Body'][0]['MakeRequestResponse'][0]['MakeRequestResult'][0];
 
@@ -325,6 +325,7 @@ app.post("/verifyotp",async(req,res)=>{
               else{
                 const validotp =await bcrypt.compare(otp,hashedotp);  // this will return a boolean value
                 if(!validotp){
+                  await User.deleteOne({ _id: userId });
                   throw Error("the otp is not valid, enter correct otp");
                 }
                 else{

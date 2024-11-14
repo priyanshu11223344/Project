@@ -13,15 +13,16 @@
 }
 
 /* Modal Content */
+/* Modal Content */
 .modal-content {
     background-color: white;
-   
     border-radius: 10px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    
-    max-width: 100%;
+    width: 80%; /* Set the width of the modal to 80% */
+    max-width: 800px; /* Optionally, set a maximum width if you want it to stop growing too large on wide screens */
     position: relative;
 }
+
 
 /* Close Button */
 .close-button {

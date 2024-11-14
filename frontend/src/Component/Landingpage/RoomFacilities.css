@@ -1,0 +1,41 @@
+/* RoomFacilities.css */
+.room-facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+    gap: 16px; /* Space between the cards */
+    padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .room-facilities-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two cards per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .room-facilities-grid {
+        grid-template-columns: 1fr; /* One card per row on small screens */
+    }
+}
+
+/* Additional styling for RoomCard */
+.room-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.room-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.room-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.room-card li {
+    margin-bottom: 4px;
+}

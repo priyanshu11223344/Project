@@ -8,12 +8,15 @@ const Cardcomponent = (props) => {
       </div>
       <div className="card-content">
         <h2 className="card-title">{props.title}</h2>
-        <p className="card-location">{props.description}</p>
+        <p className="card-location"><b>Location:</b>{props.description}</p>
         <div className="card-features">
-          <span className="refundable">{props.Special}</span>
+          <span className="refundable"><b>Special:</b>{props.Special}</span>
         </div>
         <div className="card-rating">
-          <span>{props.additionalData}</span>
+          <span><b>Category:</b>{props.additionalData}{"\u2B50"}</span>
+        </div>
+        <div className="card-rating">
+          <span><b>Rooms:</b>{props.roomData}</span>
         </div>
         <div className="card-price">
           <span className="discounted-price">{props.price}</span>

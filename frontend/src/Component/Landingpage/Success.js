@@ -10,7 +10,7 @@ const Success = () => {
                 <p className="success-message">
                     Thank you for your booking! We’re excited to have you with us.
                 </p>
-                <button className="back-button" onClick={() => window.location.href = '/Availability'}>
+                <button className="back-button" onClick={() => window.location.href = '/avail2'}>
                     Back to Home
                 </button>
             </div>

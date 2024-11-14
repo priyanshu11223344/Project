@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import "./Availability.css";
 import HotelOffers from './HotelOffers';
 import Hotelcontext from '../../context/Hotelcontext';
-import { Rings } from 'react-loader-spinner';
 import Loader from '../Loader/Loader';
 const Availability = () => {
-    const { fetchData } = useContext(Hotelcontext);
+    const { fetchData ,dataold} = useContext(Hotelcontext);
     const [showOffers, setShowOffers] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -15,12 +14,14 @@ const Availability = () => {
     useEffect(() => {
         // Fetch data on component mount if needed
         const storedCheckin = localStorage.getItem('checkin');
+        console.log(storedCheckin)
         if (storedCheckin) {
             setLoading(true); // Start loading
             setShowOffers(false); // Hide previous offers
             setError(''); // Clear any previous errors
               fetchData(storedCheckin)
-            .then(() => {
+            .then((data) => {
+                console.log("i got data",data);
                 setLoading(false); // Stop loading
                 setShowOffers(true); // Show offers after fetching
             })

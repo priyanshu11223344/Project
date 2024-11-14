@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import './Loginsignup.css';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import OTPModal from './OTPModal';  // Import OTPModal component
 
 function Login({ closeModal }) {
     const [isRightPanelActive, setRightPanelActive] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [showOTPModal, setShowOTPModal] = useState(false);  // State to control OTP modal
     const navigate = useNavigate();
     const [cred, setCred] = useState({ name: "", email: "", password: "" });
     const [logcred, setLogCred] = useState({ logemail: "", logpass: "" });
@@ -34,7 +36,7 @@ function Login({ closeModal }) {
         if (json.success) {
             localStorage.setItem("token", json.authtoken);
             localStorage.setItem("userId", json.userId);
-            navigate("/verify-otp"); // Redirect to OTP verification
+            setShowOTPModal(true);  // Open OTP modal
         } else {
             alert("Invalid credentials");
         }
@@ -71,12 +73,22 @@ function Login({ closeModal }) {
         setLogCred({ ...logcred, [e.target.name]: e.target.value });
     };
 
+    // Function to handle OTP verification result (either success or failure)
+    const handleOTPVerification = (isVerified) => {
+        if (isVerified) {
+            alert("OTP Verified Successfully!");
+        } else {
+            alert("OTP Verification Failed!");
+        }
+        setShowOTPModal(false);  // Close OTP modal after verification
+    };
+
     return (
         <div className="modal-overlay" onClick={(e) => {
-            if (e.target === e.currentTarget) {
+            if (e.target === e.currentTarget && !showOTPModal) {
                 closeModal();
             }
-        }}>
+        }} style={{ pointerEvents: showOTPModal ? "none" : "auto" }}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className={`container ${isRightPanelActive ? "right-panel-active" : ""}`} id="container">
                     <div className="form-container sign-up-container">
@@ -149,6 +161,7 @@ function Login({ closeModal }) {
                     </div>
                 </div>
             </div>
+            {showOTPModal && <OTPModal onOTPVerified={handleOTPVerification} />}
         </div>
     );
 }

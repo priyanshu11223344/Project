@@ -8,7 +8,7 @@ body{
     padding: 10px 20px; /* Adjust as needed */
     background-color: transparent; /* Optional: set background if needed */
     position: relative; /* Optional: helps in positioning */
-    background-color: aqua;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Full box shadow with soft edges */
   }
   .avail2-logo img {
     width: 280px;
@@ -23,12 +23,13 @@ body{
     color: black;
   }
   .avail2-custom-button{
+    width: fit-content;
     font-size: 15px;
     color: black;
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.8); /* Light border */
     padding: 12px 24px;
-    border-radius: 30px;
+    border-radius: 10px;
     outline: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -41,14 +42,13 @@ body{
     background-color: rgba(255, 255, 255, 0.8); 
     position: relative;
     padding: 10px;
-    border-radius: 8px;
     display: flex;
     flex-direction: row;
 
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    border: 2px solid red;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Full box shadow with soft edges */
   }
   .avail2-hero {
     /* background-image: url('../../images/s2.jpg'); Replace with your background image */
@@ -84,14 +84,21 @@ body{
   font-style: normal;
 
   }
+  .avail2-sort-by-top{
+    display: flex;
+    justify-content: right;
+  }
   .avail2-sort-by {
     display: flex;
 align-items:last baseline;
 justify-content: flex-end;
     margin-top: 20px;
     font-size: 16px;
-    border: 2px solid red;
-    width: 300px;
+    border-radius: 4px;
+    border: 2px solid rgba(53, 52, 52, 0.2);
+
+    width: 250px;
+    padding: 5px 5px 5px 5px;
     /* float: right; */
   }
   
@@ -104,7 +111,7 @@ justify-content: flex-end;
     font-size: 16px;
   }
   .avail2-search{
-    background-color: antiquewhite;
+    margin-top: 30px;
     margin-left: 10%;
     margin-right: 10%;
   }
@@ -112,8 +119,33 @@ justify-content: flex-end;
 
   
   .avail2-hotel-search{
-    background-color: green;
+    margin-top: 20px;
+    /* background-color: green; */
     margin-left: 15%;
     margin-right: 15%;
-    height: 500px;
+    display: flex;
+    justify-content: center;
   }
+  .avail2-search-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.avail2-sort-by {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.avail2-sort-by label {
+    margin-right: 8px;
+}
+
+.avail2-sort-by select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}

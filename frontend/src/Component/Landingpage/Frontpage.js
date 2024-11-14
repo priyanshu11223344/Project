@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Frontpage.css';
 import logoimage from '../../images/logo withoutBG.png';
 import { useNavigate } from 'react-router-dom';
 import Login from "../Loginsignup/Loginsignup";
-import Sideslidebar from './sideslidebar';
-import Hotelcontext from '../../context/Hotelcontext';
+import cityData from "./cityData.js";  // Import city data from the JS file
 
 const Frontpage = () => {
     const [adults, setAdults] = useState(1);
@@ -12,29 +11,27 @@ const Frontpage = () => {
     const [checkin, setCheckin] = useState('');
     const [checkout, setCheckout] = useState('');
     const [showLogin, setShowLogin] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Rename check to isLoggedIn for clarity
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedCityId, setSelectedCityId] = useState(null);
+    const [filteredCities, setFilteredCities] = useState([]);
     const navigate = useNavigate();
-    const { fetchData } = useContext(Hotelcontext); 
 
     const incrementAdults = () => setAdults(adults + 1);
     const decrementAdults = () => adults > 1 && setAdults(adults - 1);
     const incrementChildren = () => setChildren(children + 1);
     const decrementChildren = () => children > 1 && setChildren(children - 1);
     const toggleLoginModal = () => setShowLogin(!showLogin);
-    
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        if (!isNaN(date)) {
-            return date.toISOString().split('T')[0];
-        }
-        return '';
+        return !isNaN(date) ? date.toISOString().split('T')[0] : '';
     };
 
-    // Check for token on component mount and when showLogin changes
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token); // Set isLoggedIn to true if token exists
-    }, [showLogin]); // Re-check when showLogin changes to reflect login/logout
+        setIsLoggedIn(!!token);
+    }, [showLogin]);
 
     const handleCheckAvailability = (e) => {
         e.preventDefault();
@@ -52,18 +49,40 @@ const Frontpage = () => {
             return;
         }
 
+        if (!selectedCityId) {
+            alert('Please select a valid location');
+            return;
+        }
+
         localStorage.setItem('checkin', formattedCheckin);
-        fetchData(formattedCheckin);
-        navigate("/Availability");
+        localStorage.setItem('location',selectedCityId);
+        navigate("/avail2");
     };
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        setIsLoggedIn(false); // Update the state immediately on logout
+        setIsLoggedIn(false);
         alert("Logged out successfully");
     };
 
-    const today = new Date().toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
+    const handleSearchChange = (e) => {
+        const searchQuery = e.target.value.toLowerCase();
+        setSelectedCity(searchQuery);
+
+        const filtered = cityData.filter(city =>
+            city.City.toLowerCase().includes(searchQuery) ||
+            city.Country.toLowerCase().includes(searchQuery)
+        );
+        setFilteredCities(filtered);
+    };
+
+    const handleCitySelect = (cityId, cityName) => {
+        setSelectedCity(cityName);
+        setSelectedCityId(cityId);
+        setFilteredCities([]);
+    };
+
+    const today = new Date().toISOString().split('T')[0];
 
     return (
         <div className="booking-container">
@@ -73,7 +92,7 @@ const Frontpage = () => {
                 </div>
                 <div className='right-side'>
                     <div>
-                        {localStorage.getItem("token") ? (
+                        {isLoggedIn ? (
                             <button className='custom-button' onClick={handleLogout}>LOGOUT</button>
                         ) : (
                             <button className="custom-button" onClick={toggleLoginModal}>Login or Create Account</button>
@@ -87,27 +106,46 @@ const Frontpage = () => {
                     <h1>Find Best Places To Stay</h1>
                     <form className="booking-form">
                         <div className="form-group">
-                            <div>Location</div>
-                            <input type="text" placeholder="Location" />
+                        <div>Location</div>
+    <div className="search-container" style={{ position: 'relative' }}>
+        <input
+            type="text"
+            value={selectedCity}
+            onChange={handleSearchChange}
+            placeholder="Search by city or country"
+        />
+        {filteredCities.length > 0 && (
+            <ul className="search-suggestions">
+                {filteredCities.map((city) => (
+                    <li
+                        key={city.CityId}
+                        onClick={() => handleCitySelect(city.CityId, `${city.City}, ${city.Country}`)}
+                    >
+                        {city.City}, {city.Country}
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
                         </div>
                         <div className="form-group">
                             <div>Check-in</div>
-                            <input 
-                                type="date" 
-                                value={checkin} 
-                                min={today} // Prevent past dates
-                                onChange={(e) => setCheckin(e.target.value)} 
-                                required 
+                            <input
+                                type="date"
+                                value={checkin}
+                                min={today}
+                                onChange={(e) => setCheckin(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group">
                             <div>Check-out</div>
-                            <input 
-                                type="date" 
+                            <input
+                                type="date"
                                 value={checkout}
-                                min={checkin || today} // Prevent past dates and enforce after check-in
+                                min={checkin || today}
                                 onChange={(e) => setCheckout(e.target.value)}
-                                required 
+                                required
                             />
                         </div>
                         <div className="form-group">

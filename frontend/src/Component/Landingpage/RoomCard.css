@@ -1,0 +1,98 @@
+.room-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Reduced gap between cards */
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.room-card {
+    width: 100%;
+    max-width: 350px; /* Increased max width for larger screens */
+    margin: 0 auto 10px; /* Reduced bottom margin */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.room-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Ensures the image fits within the dimensions without stretching */
+}
+
+.view-details {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.view-details:hover {
+    color: #0056b3;
+}
+
+.room-facilities {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.room-facilities .half {
+    width: 48%;  /* Allows each half to take almost half the container width */
+    list-style: none;
+    padding: 0;
+}
+
+.room-facilities .half ul {
+    margin: 0;
+}
+
+.room-card-image {
+    transition: opacity 0.5s ease-in-out;  /* Smooth transition for opacity */
+}
+
+.room-card-image.fade {
+    opacity: 0;  /* Fade out the image */
+}
+
+.room-card-image:not(.fade) {
+    opacity: 1;  /* Show the image */
+}
+
+/* Responsive Adjustments */
+
+/* For tablets and smaller screens */
+@media (max-width: 992px) {
+    .room-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px; /* Reduced gap on medium screens */
+    }
+
+    .room-card {
+        max-width: 400px; /* Increased card width on medium screens */
+    }
+
+    .room-card img {
+        height: 220px;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 576px) {
+    .room-cards-container {
+        grid-template-columns: 1fr;
+        gap: 8px; /* Reduced gap on mobile */
+    }
+
+    .room-card {
+        max-width: 100%; /* Full width on mobile */
+        margin: 0 auto 8px; /* Reduced bottom margin on mobile */
+    }
+
+    .room-card img {
+        height: 180px;
+    }
+}
