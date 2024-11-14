@@ -11,7 +11,8 @@ function Login({ closeModal }) {
     const navigate = useNavigate();
     const [cred, setCred] = useState({ name: "", email: "", password: "" });
     const [logcred, setLogCred] = useState({ logemail: "", logpass: "" });
-
+    const url_back='https://project-1-back.vercel.app';
+    //const url_back='http://localhost:8000'
     const handleSignUpClick = () => {
         setRightPanelActive(true);
     };
@@ -23,7 +24,7 @@ function Login({ closeModal }) {
     const handleSignIn = async (e) => {
         e.preventDefault();
         const { name, email, password } = cred;
-        const response = await fetch("http://localhost:8000/newuser", {
+        const response = await fetch(`${url_back}/newuser`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,7 +46,7 @@ function Login({ closeModal }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         const { logemail, logpass } = logcred;
-        const response = await fetch("http://localhost:8000/login", {
+        const response = await fetch(`${url_back}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

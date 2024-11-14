@@ -6,13 +6,14 @@ function OTPVerify({ onOTPVerified }) {
     const [otp, setOtp] = useState("");
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
-
+    const url_back='https://project-1-back.vercel.app';
+    //const url_back='http://localhost:8000'
     const handleVerify = async (e) => {
         e.preventDefault();
         const requestBody = { userId, otp };
         console.log('Sending request:', requestBody);
 
-        const response = await fetch("http://localhost:8000/verifyotp", {
+        const response = await fetch(`${url_back}/verifyotp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

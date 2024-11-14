@@ -42,8 +42,8 @@ import {
 
 const Hotelinfo = () => {
     const [adults, setAdults] = useState(1);
-    //const url_back='https://project-1-back.vercel.app';
-    const url_back = 'http://localhost:8000';
+    const url_back='https://project-1-back.vercel.app';
+    //const url_back = 'http://localhost:8000';
     const stripHtmlnew = (html) => {
         const div = document.createElement('div');
         div.innerHTML = html;

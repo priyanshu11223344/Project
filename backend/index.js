@@ -17,8 +17,8 @@ import fetchuser from './middleware/fetchuser.js';
 const app = express();
 const JWT_SECRET=process.env.JWT_SECRET_KEY
 // Allow requests from your frontend's origin
-//  const url='https://project-1-front.vercel.app';
- const url='http://localhost:3000';
+  const url='https://project-1-front.vercel.app';
+ //const url='http://localhost:3000';
 app.use(cors({
    origin: url, // Make sure this matches your frontend
   methods: ["POST", "GET", "OPTIONS"],
